@@ -1,0 +1,1750 @@
+*&---------------------------------------------------------------------*
+*& Report ZBA_EXAMPLE_15T
+*&---------------------------------------------------------------------*
+*& Author   : ......
+*& Subject 	: Assigning transaction code to ABAP/4 programs - NSE93
+*& Date     : ......
+*&---------------------------------------------------------------------*
+REPORT ZBA_EXAMPLE_15T.
+
+
+**A transaction code must be assigned in order for ABAP/4 programs to be used by employees using the system.
+*Assign an transaction code to the ZCA_SAGESSE_ABAP_ORNEK_15 program and write its steps.
+*(*
+*   ZCA15
+*)
+
+
+* 1 - NSE93 <enter>
+
+* In the screen that opens, enter the operation code to be used to call the program,
+* In the example, ZCA15 is entered as the transaction code.
+* Start the operation to create the transaction code by pressing the Create button.
+
+* 2 - Transaction code : ZCA15 <enter>
+* 3 - Create <press button>
+
+*Step 2: As the type of transaction code created on the next screen
+*Enter Program and Selection-Screen and enter a description for the transaction code:
+
+* 4- Short text : Sagesse Sample Report 15
+
+* 5- Program and selection screen (Report Transaction )
+
+* 6 - Press the OK button in the lower right corner.
+
+*In the next screen, the operation code will call which screen of which program.
+
+
+
+*
+*program : ZBA_ORNEK_15 <write>
+*
+*Selection screen: 100
+*
+*Gui Support
+*Sap Gui for HTML
+*Sap Gui for java
+*Sap Gui for Windows <select> .
+
+* 8 - Press the Save button
+
+* 9 :
+*ZCA15 <enter>
+*To test the action code, click the button with the wrench symbol on the toolbar.
+*or press F8 key, the report you programmed will be run and the result will be displayed on the screen:
+
+
+*The result if you run the program
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*&---------------------------------------------------------------------*
+*& Report ZBA_EXAMPLE_20
+*&---------------------------------------------------------------------*
+*& Author   : ......
+*& Subject 	: If elseif endif - Enter the grade information of the course, print the result on the screen.
+*& Date     : ......
+*&---------------------------------------------------------------------*
+* in the program, the grade taken by the user for any course will be taken as the program parameter and according to the grade taken,
+* whether the user has passed a certain course or not will be printed on the screen.
+
+REPORT ZBA_EXAMPLE_20.
+
+* ( Step 20.1) : Creating the field where the program can take the note value from the user with the Parameters command
+* ( parameters pa_grade , integer )
+
+PARAMETERS pa_grade TYPE i.
+
+*( Step 20.2) : Printing the status of the note on the screen according to the interval the entered note is in.
+* pa_grade >= 80, 'You are very good at your lesson'
+* pa_grade >= 60 AND pa_grade < 80, 'You are good at your lesson'
+* pa_grade >= 50 AND pa_grade < 60, 'Your grade is pass'
+* pa_grade >= 40 AND pa_grade < 50, 'Your grade is bad'
+* else , 'Your grade is not enough to pass'
+
+IF pa_grade >= 80.
+  WRITE / 'You are very good at your lesson'.
+ELSEIF pa_grade >= 60 AND pa_grade < 80.
+  WRITE / 'You are good at your lesson'.
+ELSEIF pa_grade >= 50 AND pa_grade < 60.
+  WRITE / 'Your grade is valid'.
+ELSEIF pa_grade >= 40 AND pa_grade < 50.
+  WRITE / 'Your grade is bad'.
+ELSE.
+  WRITE / 'Your grade is not good enough'.
+
+ENDIF.
+
+*The result if you run the program
+
+
+
+
+
+*If you run the program, you can enter the grade value first.
+* a selection- screen will be displayed.
+* When you enter a note here and press the F8 key or the Run button, the program code will be Executed
+* and a message will be printed on the screen according to the entered note.
+*You can see the result of the program by entering different notes.
+
+*To assign end-user readable tags to parameters,
+* When the program is open in the editor, by following the Goto/Text Elements/Selection Texts path from the menu
+* You need to go to the Selection-Screen text assignment screen.
+*Enter the text for the pa_grade parameter, save and activate the text.
+* In order to see the pa_grade variable on this screen, the program code must be activated at least once.
+*
+*The description of the program code is as follows:
+*( Step 20.1 ) : Creating the field where the program can take the grade value from the user with the Parameters command.
+*( Step 20.2 ) : Printing the status of the grade on the screen according to the interval the entered grade is in.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*&---------------------------------------------------------------------*
+*& Report ZBA_EXAMPLE_22
+*&---------------------------------------------------------------------*
+*& Author   : ......
+*& Subject 	: Using Do Enddo Command
+*& Date     : ......
+*&---------------------------------------------------------------------*
+*& In the program, numbers from one to twenty and their squares will be printed on the screen.
+*&---------------------------------------------------------------------*
+
+REPORT ZBA_example_22.
+*(Step 22.1): Define the program variables to hold the number and the square of the number
+**( gv_number, integer
+* gv_number_square, integer )
+DATA gv_number TYPE i.
+DATA gv_number_square TYPE i.
+
+*(Step 22.2): Printing the numbers from one to twenty and their squares using the DO...ENDDO command.
+* do 20 times
+* gv_number <- sy-index
+* gv_number squared <- gv_number ** 2
+* gv_number, gv_number_square -> print to screen.
+DO 20 TIMES.
+  gv_number         = sy-index.
+  gv_number_square  = gv_number ** 2.
+
+  IF sy-index = 1.
+    WRITE : / 'Number :', 'Number Squared'.
+  ENDIF.
+  WRITE :/ gv_number LEFT-JUSTIFIED , gv_number_square.
+
+ENDDO.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*The result if you run the program
+
+
+
+*The description of the program code is as follows:
+*(Step 1): Define the program variables to hold the number and the square of the number
+*(Step 2): Printing the numbers from one to twenty and their squares using the DO...ENDDO command.
+* When using the DO...ENDDO instruction, if the number of times the loop should run is known at the time of writing the code, this number is added to the DO instruction by using the TIMES suffix,
+* Since the loop will work for all numbers from one to twenty in the example, 20 TIMES has been added.
+*(Step 3): Within the loop, the system field SY-INDEX is a variable that is automatically updated by the system, indicating how many times the loop has run,
+* the value of this field is one when the loop runs the first time, Two when it runs the second time, and so on.
+
+
+
+
+
+
+
+
+
+*&---------------------------------------------------------------------*
+*& Report ZBA_EXAMPLE_23
+*&---------------------------------------------------------------------*
+*& Author   : ......
+*& Subject 	: Using Do Enddo Command - Infinite Loop
+*& Date     : ......
+*&--------------------------------------------------------------------*
+*& An infinitive loop of DO... ENDDO is programmed in the program.
+*& In this loop, the squares of the numbers are calculated and if the calculated value is greater than six hundred, it is requested to exit the loop.
+*&--------------------------------------------------------------------*
+
+REPORT ZBA_EXAMPLE_23.
+
+*(Step 23.1): Defining program variables to hold the number and the square of the number
+**( gv_number, integer
+* gv_number_square, integer )
+DATA gv_number TYPE i.
+DATA gv_number_square TYPE i.
+
+*(Step 23.2): Using the DO...ENDDO command, the squares of the numbers are calculated in an infinitive loop and if the calculated value is greater than six hundred, it is requested to exit the loop.
+* do
+* gv_number <- sy-index
+* gv_number squared <- gv_number ** 2
+* if gv_number squared > 600 -> exit loop.
+* gv_number, gv_number_square -> print to screen.
+DO.
+  gv_number = sy-index.
+  gv_number_square = gv_number ** 2.
+
+  IF gv_number_square > 600.
+    EXIT.
+  ENDIF.
+
+  IF sy-index = 1.
+    WRITE : / 'Number :', 'Number Squared'.
+  ENDIF.
+  WRITE :/ gv_number LEFT-JUSTIFIED , gv_number_square.
+
+ENDDO.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*The result if you run the program
+
+
+
+*The following code block is used in the program code to exit the DO...ENDDO infinite loop:
+*IF gv_number_square > 600.
+* EXIT.
+*ENDIF.
+*EXIT instruction is used to exit the loop when used in a loop.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*&---------------------------------------------------------------------*
+*& Report ZBA_EXAMPLE_31
+*&---------------------------------------------------------------------*
+*& Author   : ......
+*& Subject 	:  Using Internal table - Loop where, Sort
+*& Date     : ......
+*&---------------------------------------------------------------------*
+* While programming the loop in internal table records,
+*  logical expressions can be used to specify which records should be processed by adding the WHERE keyword after the LOOP command.
+* Records in the internal table can be sorted by increasing or decreasing according to the values ​​of certain columns by using the SORT command.
+*--------------------------------------------------------------------*
+REPORT ZBA_EXAMPLE_31.
+
+*(Step 31.1) Defining the structure variable to hold country information
+*(* gs_country    -> structure
+*   country_name  -> character, 30,
+*   capital       -> character, 20,
+*   population    -> integer
+* *)
+
+DATA : BEGIN OF gs_country,
+         country_name TYPE c LENGTH 30,
+         capital      TYPE c LENGTH 20,
+         population   TYPE i,
+       END OF gs_country.
+
+
+*(Step 31.2) Define the internal table to hold the country list
+* (* gt country -> like standard table of gs_country *)
+
+DATA gt_country LIKE STANDARD TABLE OF gs_country.
+
+*(Step 31.3) Populating the country internal table with country information
+*(* 'Germany', 'Berlin', 81500000
+* append gs_country -> gt_country
+*
+*USA', 'Washington', 320000000
+* append gs_country -> gt_country
+
+* 'Turkey', 'Ankara' 78000000
+* append gs_country -> gt_country
+
+* 'France', 'Paris', 66 million
+* append gs_country -> gt_country
+
+* 'Italy', 'Rome', 59000000
+* append gs_country -> gt_country
+*)
+
+gs_country-country_name = 'Germany'.
+gs_country-capital      = 'Berlin'.
+gs_country-population   = 81500000.
+APPEND gs_country TO gt_country.
+
+CLEAR gs_country.
+gs_country-country_name = 'USA'.
+gs_country-capital      = 'Washington'.
+gs_country-population   = 320000000.
+APPEND gs_country TO gt_country.
+
+CLEAR gs_country.
+gs_country-country_name = 'Turkey'.
+gs_country-capital      = 'Ankara'.
+gs_country-population   = 78000000.
+APPEND gs_country TO gt_country.
+
+
+CLEAR gs_country.
+gs_country-country_name = 'France'.
+gs_country-capital      = 'Paris'.
+gs_country-population   = 66000000.
+APPEND gs_country TO gt_country.
+
+CLEAR gs_country.
+gs_country-country_name = 'Italy'.
+gs_country-capital      = 'Rome'.
+gs_country-population   = 59000000.
+APPEND gs_country TO gt_country.
+
+* (Step 31.4) printing the country internal table in its initial state on the list screen
+* Loop ... End Loop
+* (* gs_country-country_name, gs_country-capital, gs_country-nufus *)
+
+WRITE : / 'First internal table list'.
+ULINE.
+FORMAT COLOR COL_HEADING.
+WRITE : /10 'Country', 50 'Capital', 70 'Population'.
+FORMAT COLOR COL_NORMAL.
+LOOP AT gt_country INTO gs_country.
+  WRITE : /10 gs_country-country_name, 50 gs_country-capital, 70 gs_country-population .
+ENDLOOP.
+
+*------------------------------------------------ -------------------*
+*(Step 31.5) Printing the internal table on the screen after the country internal table is sorted by increasing population
+* SORT ... BY ... population
+* (* gs_country-country_name, gs_country-capital, gs_country-nufus *)
+
+SORT gt_country BY population ASCENDING.
+SKIP 2.
+WRITE:/ 'List of internal tables in ascending order by population'.
+ULINE.
+
+FORMAT COLOR COL_HEADING.
+WRITE :/10 'Country', 50 'Capital', 70 'Population'.
+FORMAT COLOR COL_NORMAL.
+LOOP AT gt_country INTO gs_country.
+  WRITE:/10 gs_country-country_name, 50 gs_country-capital, 70 gs_country-population.
+ENDLOOP.
+
+
+*(Step 31.6) Printing the internal table on the screen after the country internal table is sorted by country name in descending order
+* SORT ... BY ... country_name
+* (* gs_country-country_name, gs_country-capital, gs_country-nufus *)
+SORT gt_country BY country_name DESCENDING.
+SKIP 2.
+WRITE:/ 'List of internal tables sorted by name'.
+ULINE.
+FORMAT COLOR COL_HEADING.
+WRITE:/10 'Country', 50 'Capital', 70 'Population'.
+FORMAT COLOR COL_NORMAL.
+LOOP AT gt_country INTO gs_country.
+  WRITE:/10 gs_country-country_name, 50 gs_country-capital, 70 gs_country-population.
+ENDLOOP.
+
+*------------------------------------------------ -------------------*
+
+*(Step 31.7) Printing countries with population over 70 million on the screen
+* Loop ... EndLoop .. Where
+* (* gs_country-country_name, gs_country-capital, gs_country-nufus *)
+
+SKIP 2.
+WRITE:/ 'List of countries with more than seventy million inhabitants'.
+ULINE.
+FORMAT COLOR COL_HEADING.
+WRITE:/10 'Country', 50 'Capital', 70 'Population'.
+FORMAT COLOR COL_NORMAL.
+
+LOOP AT gt_country INTO gs_country WHERE population > 70000000.
+  WRITE:/10 gs_country-country_name, 50 gs_country-capital, 70 gs_country-population.
+ENDLOOP.
+
+*(Step 31.8) Screen printing of countries with population between 50-70 million
+* Loop ... EndLoop .. Where
+* (* gs_country-country_name, gs_country-capital, gs_country-nufus *)
+SKIP 2.
+WRITE:/ 'List of countries with population 50-70 million'.
+ULINE.
+FORMAT COLOR COL_HEADING.
+WRITE:/10 'Country', 50 'Capital', 70 'Population'.
+FORMAT COLOR COL_NORMAL.
+
+LOOP AT gt_country INTO gs_country WHERE population >= 50000000 AND population < 70000000.
+  WRITE:/10 gs_country-country_name, 50 gs_country-capital, 70 gs_country-population .
+ENDLOOP.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*The result if you run the program
+
+
+
+
+*
+*
+*The description of the program code is as follows:
+*(Step 31.1): Defining a Structure type variable named gs_country that shows country information.
+*(Step 31.2): Define the Standard internal table named GT_ULKE. Each row of the internal table is a structure type variable named gs_country.
+*(Step 31.3): Adding records to the internal table GT_ULKE for five different countries.
+*(Step 31.4): Printing the GT_ULKE internal table records.
+*(Step 31.5): Sorting GT_ULKE records by population and displaying the records on the screen.
+*(Step 31.6): Sorting GT_ULKE records by country name and displaying them on the screen.
+*(Step 31.7): Displaying countries with a population of more than seventy million.
+*(Step 31.8): Displaying countries with populations between fifty and seventy million.
+
+*print to screen format
+
+*FORMAT COLOR COL_HEADING.
+*/10 'Country', 50 'Capital', 70 'Population' ->  print
+*
+*FORMAT COLOR COL_NORMAL.
+*Loop ... End Loop
+*     //10 gs_country-country_name, 50 gs_country-capital, 70 gs_country-population  -> print
+*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*&---------------------------------------------------------------------*
+*& Report ZBA_EXAMPLE_32
+*&---------------------------------------------------------------------*
+*& Author   : ......
+*& Subject 	:  Using Internal table, Read Table with key, Read Table Index
+*& Date     : ......
+*&---------------------------------------------------------------------*
+* READ TABLE command is used to read single record from internal tables.
+* If the READ TABLE command is used with the WITH KEY keyword, a record can be read according to the value of certain columns in the internal table.
+* If the READ TABLE command is used with the INDEX keyword, a record in the internal table can be read using the index.
+*--------------------------------------------------------------------*
+
+REPORT ZBA_EXAMPLE_32.
+
+*(Step 32.1) Defining the structure variable to hold country information
+*(* gs_country    -> structure
+*   country_name  -> character, 30,
+*   capital       -> character, 20,
+*   population    -> integer
+* *)
+
+DATA : BEGIN OF gs_country,
+         country_name TYPE c LENGTH 30,
+         capital      TYPE c LENGTH 20,
+         population   TYPE i,
+       END OF gs_country.
+
+
+*(Step 32.2) Define the internal table to hold the country list
+* (* gt country -> like standard table of gs_country *)
+
+DATA gt_country LIKE STANDARD TABLE OF gs_country.
+
+*(Step 33.3) Populating the country internal table with country information
+*(* 'Germany', 'Berlin', 81500000
+* append gs_country -> gt_country
+*
+*USA', 'Washington', 320000000
+* append gs_country -> gt_country
+
+* 'Turkey', 'Ankara' 78000000
+* append gs_country -> gt_country
+
+* 'France', 'Paris', 66 million
+* append gs_country -> gt_country
+
+* 'Italy', 'Rome', 59000000
+* append gs_country -> gt_country
+*)
+
+gs_country-country_name = 'Germany'.
+gs_country-capital      = 'Berlin'.
+gs_country-population   = 81500000.
+APPEND gs_country TO gt_country.
+
+CLEAR gs_country.
+gs_country-country_name = 'USA'.
+gs_country-capital      = 'Washington'.
+gs_country-population   = 320000000.
+APPEND gs_country TO gt_country.
+
+CLEAR gs_country.
+gs_country-country_name = 'Turkey'.
+gs_country-capital      = 'Ankara'.
+gs_country-population   = 78000000.
+APPEND gs_country TO gt_country.
+
+
+CLEAR gs_country.
+gs_country-country_name = 'France'.
+gs_country-capital      = 'Paris'.
+gs_country-population   = 66000000.
+APPEND gs_country TO gt_country.
+
+CLEAR gs_country.
+gs_country-country_name = 'Italy'.
+gs_country-capital      = 'Rome'.
+gs_country-population   = 59000000.
+APPEND gs_country TO gt_country.
+
+*(Step 32.4) Printing information for Italy on the screen
+* Read Table.. into.. with key  country_name -> 'Italy'
+* (* gs_country-country_name, gs_country-capital, gs_country-population *)
+
+FORMAT COLOR COL_GROUP.
+WRITE:/ 'Information for Italy'.
+ULINE.
+FORMAT COLOR COL_HEADING.
+WRITE:/10 'Country', 50 'Capital', 70 'Population'.
+CLEAR gs_country.
+READ TABLE gt_country INTO gs_country WITH KEY country_name = 'Italy'.
+IF sy-subrc IS INITIAL.
+  FORMAT COLOR COL_NORMAL.
+  WRITE :/10 gs_country-country_name, 50 gs_country-capital, 70 gs_country-population.
+ELSE.
+  FORMAT COLOR COL_NEGATIVE.
+  WRITE / 'No record found for Italy'.
+ENDIF.
+
+
+*------------------------------------------------ -------------------*
+
+
+
+*(Step 32.5) For France/London, if any, information is printed on the screen
+* Read Table.. into.. with key country_name -> 'France', capital -> 'London'
+* (* gs_country-country_name, gs_country-capital, gs_country-population *)
+
+SKIP 2.
+FORMAT COLOR COL_GROUP.
+WRITE:/ 'Information for France'.
+ULINE.
+FORMAT COLOR COL_HEADING.
+WRITE:/10 'Country', 50 'Capital', 70 'Population'.
+CLEAR gs_country.
+READ TABLE gt_country INTO gs_country WITH KEY country_name = 'France'
+                                         capital = 'London'.
+IF sy-subrc IS INITIAL.
+  FORMAT COLOR COL_NORMAL.
+  WRITE:/10 gs_country-country_name, 50 gs_country-capital, 70 gs_country-population.
+ELSE.
+
+  FORMAT COLOR COL_NEGATIVE.
+  WRITE / 'No record found for France/London'.
+ENDIF.
+
+
+
+*(Step 32.6) Printing the information on the screen for the second record in the internal table
+* Read Table.. into.. index
+* (* gs_country-country_name, gs_country-capital, gs_country-population *)
+SKIP 2.
+FORMAT COLOR COL_GROUP.
+WRITE:/ 'Information for second record'.
+ULINE.
+FORMAT COLOR COL_HEADING.
+WRITE:/10 'Country', 50 'Capital', 70 'Population'.
+CLEAR gs_country.
+READ TABLE gt_country INTO gs_country INDEX 2.
+IF sy-subrc IS INITIAL.
+  FORMAT COLOR COL_NORMAL.
+  WRITE:/10 gs_country-country_name, 50 gs_country-capital, 70 gs_country-population.
+ELSE.
+  FORMAT COLOR COL_NEGATIVE.
+  WRITE / 'Second record not found'.
+ENDIF.
+
+
+*The result if you run the program
+
+
+
+*The program code description is as follows:
+*(Step 32.1): Defining the structure type data type to be used to define country variables.
+*(Step 32.2): Define country variable and country internal table.
+*(Step 32.3): Adding country variables to the country internal table.
+*(Step 32.4): Reading the record with Italy in the country name field from the internal table and printing the information of this record on the screen.
+*(Step 32.5): Reading the record with France in the country name field and London in the capital field from the internal table, if any.
+*(Step 32.6): Reading the second record in the internal table using the index and printing the read information to the screen.
+
+*print to screen format
+
+*FORMAT COLOR COL_HEADING.
+*/10 'Country', 50 'Capital', 70 'Population' ->  print
+*
+*FORMAT COLOR COL_NORMAL.
+*Loop ... End Loop
+*     //10 gs_country-country_name, 50 gs_country-capital, 70 gs_country-population  -> print
+*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*&---------------------------------------------------------------------*
+*& Report ZBA_EXAMPLE_33
+*&---------------------------------------------------------------------*
+*& Author   : ......
+*& Subject 	:  Using internal Tablo, modify, delete command
+*& Date     : ......
+*&---------------------------------------------------------------------*
+*  MODITING AND DELETING RECORDINGS OF INTERNAL TABLES
+*  The MODIFY command is used to change the contents of the records in the internal table and the DELETE command is used to delete the records.
+*--------------------------------------------------------------------*
+REPORT ZBA_example_33.
+
+*(Step 33.1) Defining the structure variable to hold country information
+*(* gs_country    -> structure
+*   country_name  -> character, 30,
+*   capital       -> character, 20,
+*   population    -> integer
+* *)
+
+DATA : BEGIN OF gs_country,
+         country_name TYPE c LENGTH 30,
+         capital      TYPE c LENGTH 20,
+         population   TYPE i,
+       END OF gs_country.
+
+
+*(Step 33.2) Define the internal table to hold the country list
+* (* gt country -> like standard table of gs_country *)
+
+DATA gt_country LIKE STANDARD TABLE OF gs_country.
+
+*(Step 33.3) Populating the country internal table with country information
+*(* 'Germany', 'Berlin', 81500000
+* append gs_country -> gt_country
+*
+*USA', 'Washington', 320000000
+* append gs_country -> gt_country
+
+* 'Turkey', 'Ankara' 78000000
+* append gs_country -> gt_country
+
+* 'France', 'Paris', 66 million
+* append gs_country -> gt_country
+
+* 'Italy', 'Rome', 59000000
+* append gs_country -> gt_country
+*)
+
+gs_country-country_name = 'Germany'.
+gs_country-capital      = 'Berlin'.
+gs_country-population   = 81500000.
+APPEND gs_country TO gt_country.
+
+CLEAR gs_country.
+gs_country-country_name = 'USA'.
+gs_country-capital      = 'Washington'.
+gs_country-population   = 320000000.
+APPEND gs_country TO gt_country.
+
+CLEAR gs_country.
+gs_country-country_name = 'Turkey'.
+gs_country-capital      = 'Ankara'.
+gs_country-population   = 78000000.
+APPEND gs_country TO gt_country.
+
+
+CLEAR gs_country.
+gs_country-country_name = 'France'.
+gs_country-capital      = 'Paris'.
+gs_country-population   = 66000000.
+APPEND gs_country TO gt_country.
+
+CLEAR gs_country.
+gs_country-country_name = 'Italy'.
+gs_country-capital      = 'Rome'.
+gs_country-population   = 59000000.
+APPEND gs_country TO gt_country.
+
+* (Step 33.4) printing the country internal table in its initial state on the list screen
+* Loop ... End Loop
+* (* gs_country-country_name, gs_country-capital, gs_country-nufus *)
+
+WRITE : / 'First internal table list'.
+ULINE.
+FORMAT COLOR COL_HEADING.
+WRITE : /10 'Country', 50 'Capital', 70 'Population'.
+FORMAT COLOR COL_NORMAL.
+LOOP AT gt_country INTO gs_country.
+  WRITE : /10 gs_country-country_name, 50 gs_country-capital, 70 gs_country-population .
+ENDLOOP.
+
+*(Step 33.5) Printing the internal table after changing the population of countries with less than 70 million population to 70 million
+LOOP AT gt_country INTO gs_country.
+  IF gs_country-population < 70000000.
+    gs_country-population = 70000000.
+    MODIFY gt_country FROM gs_country.
+  ENDIF.
+ENDLOOP.
+SKIP 2.
+WRITE:/ 'List after modification with population less than 70 million'.
+ULINE.
+FORMAT COLOR COL_HEADING.
+WRITE:/10 'Country',50 'Capital', 70 'Population'.
+FORMAT COLOR COL_NORMAL.
+LOOP AT gt_country INTO gs_country.
+  WRITE :/10 gs_country-country_name, 50 gs_country-capital, 70 gs_country-population.
+ENDLOOP.
+
+
+
+
+
+
+
+
+
+
+*------------------------------------------------ -------------------*
+
+*(Step 33.6) Changing the population to 85 million for Germany record and printing the internal table on the screen
+* Read Table ... Into ... With Key
+* If sy_subrc = 0 , gs_country-population -> 85000000
+* Modify .. FROM ... INDEX
+
+READ TABLE gt_country INTO gs_country WITH KEY country_name = 'Germany'.
+IF sy-subrc = 0.
+  gs_country-population = 85000000.
+  MODIFY gt_country FROM gs_country INDEX sy-tabix.
+ELSE.
+  WRITE / 'No record found for Germany'.
+ENDIF.
+SKIP 2.
+WRITE:/ 'List after population change for Germany'.
+ULINE.
+FORMAT COLOR COL_HEADING.
+WRITE:/10 'Country', 50 'Capital', 70 'Population'.
+FORMAT COLOR COL_NORMAL.
+LOOP AT gt_country INTO gs_country.
+  WRITE :/10 gs_country-country_name, 50 gs_country-capital, 70 gs_country-population.
+ENDLOOP.
+
+*(Step 33.7) 3 in the internal table, deleting the record using index and printing the result to the screen
+* DELETE ... INDEX
+
+DELETE gt_country INDEX 3.
+SKIP 2.
+WRITE:/ 'List after third record is deleted'.
+ULINE.
+FORMAT COLOR COL_HEADING.
+WRITE:/10 'Country', 50 'Capital', 70 'Population'.
+FORMAT COLOR COL_NORMAL.
+LOOP AT gt_country INTO gs_country.
+  WRITE:/10 gs_country-country_name, 50 gs_country-capital, 70 gs_country-population.
+ENDLOOP.
+
+*(Step 33.8) Deleting countries with less than 75 million population from the internal table and printing the result on the screen
+* DELETE ... WHERE
+
+DELETE gt_country WHERE population <= 75000000.
+SKIP 2.
+WRITE:/ 'List of countries with a population greater than 75 million'.
+ULINE.
+FORMAT COLOR COL_HEADING.
+WRITE:/10 'Country', 50 'Capital', 70 'Population'.
+FORMAT COLOR COL_NORMAL.
+LOOP AT gt_country INTO gs_country.
+  WRITE:/10 gs_country-country_name, 50 gs_country-capital, 70 gs_country-population.
+ENDLOOP.
+
+
+
+
+The result if you run the program
+
+
+
+
+
+
+
+
+*The program code description is as follows:
+*(Step 33.1): Defining the structure type variable to be used to define country variables.
+*(Step 33.2): Define GT_COUNT internal table: Define country variable and country internal table.
+*(Step 33.3): Adding records to the gt_country internal table.
+*(Step 33.4): Printing gt_country records to the screen.
+*(Step 33.5): By looping through the GT_COUNTRY internal table, changing the population values ​​of records with a population of less than seventy million to seventy million and displaying GT_ COUNTRY records on the screen.
+*(Step 33.6): Reading the record containing Germany in the country name field from the internal table named gt_country and changing the population value of this record in the table e Displaying the GT_ COUNTRY records on the screen.
+*(Step 33.7): Deleting the third record from the GT_COUNTRY internal table and displaying the GT_ COUNTRY records on the screen.
+*(Step 33.8): Deleting countries with less than 75 million population from GT_COUNTRY internal table and displaying GT_ COUNTRY records on the screen.
+
+*print to screen format
+
+*FORMAT COLOR COL_HEADING.
+*/10 'Country', 50 'Capital', 70 'Population' ->  print
+*
+*FORMAT COLOR COL_NORMAL.
+*Loop ... End Loop
+*     //10 gs_country-country_name, 50 gs_country-capital, 70 gs_country-population  -> print
+*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*&---------------------------------------------------------------------*
+*& Report ZBA_EXAMPLE_34
+*&---------------------------------------------------------------------*
+*& Author   : ......
+*& Subject 	:  Using nternal Table  AT NEW...ENDAT , ENDOF...ENDAT
+*& Date     : ......
+*&---------------------------------------------------------------------*
+* AT NEW...ENDAT command should be used when ABAP/4 codes need to be written, which should only work when the values of certain fields change within the loops in internal tables.
+* ABAP/4 codes that need to be processed once after the last record containing the value of the specified field are also written among the AT ENDOF....ENDAT commands.
+* In this program, the cities of the countries and the populations of these cities are shown.
+* While the table records are displayed on the screen, the country name for each new country is printed on the screen once, then the cities and populations of this country are printed on the screen,
+* Finally, the population total of the records in the table of the relevant country is printed on the screen before registering a new country.
+*--------------------------------------------------------------------*
+
+REPORT ZBA_EXAMPLE_34.
+
+*(Step 34.1) Defining the structure data type to hold country-city city_population information
+*(* gs_country            -> structure
+*   country_name          -> character, 30,
+*   city_name             -> character, 20,
+*   city_city_population  -> integer
+* *)
+
+TYPES : BEGIN OF gty_s_country,
+          country_name      TYPE c LENGTH 30,
+          city_name         TYPE c LENGTH 20,
+          city_population   TYPE i,
+        END OF gty_s_country.
+
+
+*(Step 34.2) Define the internal table to hold the country list
+* (* gt country -> like standard table of gs_country *)
+
+DATA gt_country TYPE STANDARD TABLE OF gty_s_country.
+DATA gs_country LIKE LINE OF gt_country.
+
+*(Step 34.3) Populating the country internal table with country-city information
+*(* 'Germany', 'Berlin', 340000
+* append gs_country -> gt_country
+*
+* 'Germany', 'Munich', 1250000
+* append gs_country -> gt_country
+*
+* 'Germany', 'Hamburg', 1750000
+* append gs_country -> gt_country
+*
+* 'France', 'Paris', 2200000
+* append gs_country -> gt_country
+*
+* 'France', 'Marseille', 840000
+* append gs_country -> gt_country
+*
+* 'Italy', Rome, 2750000
+* append gs_country -> gt_country
+*
+* 'Italy', 'Milan', 1300000
+* append gs_country -> gt_country
+*
+* 'Italy', 'Naples', 950000
+* append gs_country -> gt_country
+*
+* 'Italy', 'Turin', 910000
+* append gs_country -> gt_country
+
+
+
+
+gs_country-country_name = 'Germany'.
+gs_country-city_name = 'Berlin'.
+gs_country-city_population = 340000.
+APPEND gs_country TO gt_country.
+
+gs_country-country_name = 'Germany'.
+gs_country-city_name = 'Munich'.
+gs_country-city_population = 1250000.
+APPEND gs_country TO gt_country.
+
+
+gs_country-country_name = 'Germany'.
+gs_country-city_name = 'Hamburg'.
+gs_country-city_population = 1750000.
+APPEND gs_country TO gt_country.
+
+
+gs_country-country_name = 'France'.
+gs_country-city_name = 'Paris'.
+gs_country-city_population = 2200000.
+APPEND gs_country TO gt_country.
+
+
+gs_country-country_name = 'France'.
+gs_country-city_name = 'Marseille'.
+gs_country-city_population = 840000.
+APPEND gs_country TO gt_country.
+
+gs_country-country_name = 'Italy'.
+gs_country-city_name = 'Rome'.
+gs_country-city_population = 2750000.
+APPEND gs_country TO gt_country.
+
+gs_country-country_name = 'Italy'.
+gs_country-city_name = 'Milan'.
+gs_country-city_population = 1300000.
+APPEND gs_country TO gt_country.
+
+gs_country-country_name = 'Italy'.
+gs_country-city_name = 'Naples'.
+gs_country-city_population = 950000.
+APPEND gs_country TO gt_country.
+
+
+gs_country-country_name = 'Italy'.
+gs_country-city_name = 'Torino'.
+gs_country-city_population = 910000.
+APPEND gs_country TO gt_country.
+
+* (Step 34.4) Sorting the contents of the internal table in ascending order according to the country name
+* SORT... BY...
+* LOOP AT ... INTO ...
+* AT NEW country_name
+* FORMAT COLOR COL_NEGATIVE
+* 15 'country_name'
+* FORMAT COLOR COL_NORMAL
+*  15 gs_country-country_name.
+*  FORMAT COLOR COL_NORMAL.
+*  55 'City name', 75 'City Population'.
+*)
+
+SORT gt_country BY country_name.
+LOOP AT gt_country INTO gs_country.
+* (Step 34.5) Printing the titles on the screen every time the country name is changed
+  AT NEW country_name.
+    FORMAT COLOR COL_NEGATIVE.
+    WRITE /15 'country Name'.
+    FORMAT COLOR COL_NORMAL.
+    WRITE /15 gs_country-country_name.
+    FORMAT COLOR COL_NORMAL.
+    WRITE :/55 'City name', 75 'City Population'.
+  ENDAT.
+
+* (Step 34.6) Printing information for each record in the internal table
+*FORMAT COLOR COL_NORMAL.
+*(* /55 gs_country-city_name, 75 gs_country-city_population.*)
+
+
+  FORMAT COLOR COL_NORMAL.
+  WRITE:/55 gs_country-city_name, 75 gs_country-city_population.
+
+* (Step 34.7) When each country changes, calculating the sum of the population areas with numerical value for that country and printing it on the screen
+*(*  AT END OF country_name.
+*    SUM
+*    FORMAT COLOR COL_TOTAL.
+*    65 'Total', 75 gs_country-city_population.
+**)
+
+
+  AT END OF country_name.
+    SUM.
+    FORMAT COLOR COL_TOTAL.
+    WRITE :/65 'Total', 75 gs_country-city_population.
+  ENDAT.
+
+
+ENDLOOP.
+
+
+
+
+
+The result if you run the program
+	
+
+
+
+*
+**The description of the program code is as follows:
+*(Step 34.1): Define structure data type and internal table to hold country information.
+*(Step 34.3): Adding country information to Internal table named GT_COUNTRY.
+*(Step 34.4): Sorting the GT_COUNTRY internal table by country name ascending.
+*             For the AT NEW and AT END OF commands to work correctly,
+*             the relevant internal table must be sorted according to the field used in these commands.
+*(Step 34.5): Loop programming with LOOP on the GT_COUNTRY internal table, printing the country information to the screen by using the AT NEW command every time the country name is changed.
+*(Step 34.7): When the last record of a country is reached, using the SUM command in the AT END OF command, calculating the sum of the values ​​in all records of this country and printing the calculated population value on the screen
+
+
+
+
+
+
+*&---------------------------------------------------------------------*
+*& Report ZBA_EXAMPLE_35
+*&---------------------------------------------------------------------*
+*& Author   : ......
+*& Subject 	: Using COLLECT command in INTERNAL TABLE
+*& Date     : ......
+*&---------------------------------------------------------------------*
+** In the examples made so far, we have added new records to the internal table with the APPEND command.
+* Another command used to add records to the internal tables is the COLLECT command.
+* When the COLLECT command is used, if there is a record with the same key value in the internal table, instead of adding a new record,
+* the numeric values ​​in the record to be added are added to the numeric values ​​in the existing record.
+
+
+REPORT ZBA_EXAMPLE_35.
+
+*(Step 35.1) Structure to hold country sales data
+* definition of DATA TYPE
+*(* gty_s_country -> structure
+*   country_name  -> character,30
+*   sales_amount  -> integer
+**)
+
+TYPES : BEGIN OF gty_s_country,
+          country_name TYPE c LENGTH 30,
+          sales_amount TYPE i,
+        END OF gty_s_country.
+
+* (Step 35.2): Define the internal table that will hold the sales list
+*(* gt_country -> STANDARD TABLE
+* gs_country -> Structure (Creating Structure with Data)
+**)
+
+DATA : gt_country TYPE STANDARD TABLE OF gty_s_country.
+DATA : gs_country LIKE LINE OF gt_country.
+
+*( Step 35.3): * Finding the total sales by country with COLLECT residence
+*(*
+*gs_country-country_name -> 'Germany'.
+*gs_country-sales_amount -> 400000.
+*COLLECT ... INTO ...
+*
+*gs_country-country_name -> 'France'.
+*gs_country-sales_amount -> 550000.
+*COLLECT ... INTO ...
+*
+*gs_country-country_name -> 'France'.
+*gs_country-sales_amount -> 70000.
+*COLLECT ... INTO ...
+*
+*gs_country-country_name -> 'Germany'.
+*gs_country-sales_amount -> 3000.
+*COLLECT ... INTO ...
+*)
+
+gs_country-country_name = 'Germany'.
+gs_country-sales_amount = 400000.
+COLLECT gs_country INTO gt_country.
+
+gs_country-country_name = 'France'.
+gs_country-sales_amount = 550000.
+COLLECT gs_country INTO gt_country.
+
+gs_country-country_name = 'France'.
+gs_country-sales_amount = 70000.
+COLLECT gs_country INTO gt_country.
+
+gs_country-country_name = 'Germany'.
+gs_country-sales_amount = 3000.
+COLLECT gs_country INTO gt_country.
+
+
+*Printing the Country Total Sales List to the screen
+*(* Loop ... at...
+* gs_country-country_name
+* gs_country-sales_amount -> print to screen.
+**)
+
+LOOP AT gt_country INTO gs_country.
+  WRITE:/ gs_country-country_name, gs_country-sales_amount .
+ENDLOOP.
+
+The result if you run the program
+
+
+
+"(Step 35.1) Defining the GT_country internal table.
+"(Step 35.2) Adding the record for Germany to the internal table.
+"Although many records are added to the GT_country internal table for Germany and France, there are only two records in the table because the COLLECT command is used,
+* and the numeric values ​​are added to the numeric values ​​in the corresponding row in the table in each COLLECT operation.
+
+
+
+
+*&---------------------------------------------------------------------*
+*& Report ZBA_EXAMPLE_36
+*&---------------------------------------------------------------------*
+*& Author   : ......
+*& Subject 	:  Using Sorted Internal Table
+*& Date     : ......
+*&---------------------------------------------------------------------*
+* In Sorted Internal tables, records are kept sequentially by the system according to the fields given while defining the table.
+* Therefore, you cannot add records to sorted internal tables using the APPEND command.
+* To add records to Sorted Internal tables, it is necessary to use the INSERT command.
+*--------------------------------------------------------------------*
+
+REPORT ZBA_example_36.
+
+*( Step 36.1) Defining the structure variable to hold the country information
+*(* gs_country    -> structure
+*   country_name  -> character, 30,
+*   capital       -> character, 20,
+*   population    -> integer
+* *)
+
+DATA : BEGIN OF gs_country,
+         country_name TYPE c LENGTH 30,
+         capital      TYPE c LENGTH 20,
+         population   TYPE i,
+       END OF gs_country.
+
+* ( Step 36.2) Defining the sorted internal table to hold the Country List
+* (* gt_country -> like SORTED TABLE OF ... WITH UNIQUE KEY country_name *)
+
+DATA gt_country LIKE SORTED TABLE OF gs_country
+                  WITH UNIQUE KEY country_name.
+
+*(Step 36.3) Populating the country internal table with country information
+*(* 'Germany', 'Berlin', 81500000
+* append gs_country -> gt_country
+*
+*USA', 'Washington', 320000000
+* append gs_country -> gt_country
+
+* 'Turkey', 'Ankara' 78000000
+* append gs_country -> gt_country
+
+* 'France', 'Paris', 66 million
+* append gs_country -> gt_country
+
+* 'Italy', 'Rome', 59000000
+* append gs_country -> gt_country
+*)
+gs_country-country_name = 'Germany'.
+gs_country-capital = 'Berlin'.
+gs_country-population = 81500000.
+INSERT gs_country INTO TABLE gt_country.
+
+CLEAR gs_country.
+gs_country-country_name = 'USA'.
+gs_country-capital = 'Washington'.
+gs_country-population = 320000000.
+INSERT gs_country INTO TABLE gt_country.
+
+CLEAR gs_country.
+gs_country-country_name = 'Turkey'.
+gs_country-capital = 'Ankara'.
+gs_country-population = 78000000.
+INSERT gs_country INTO TABLE gt_country.
+
+
+CLEAR gs_country.
+gs_country-country_name = 'France'.
+gs_country-capital = 'Paris'.
+gs_country-population = 660000000.
+INSERT gs_country INTO TABLE gt_country.
+
+CLEAR gs_country. gs_country-country_name = 'Italy'.
+gs_country-capital = 'Rome'.
+gs_country-population = 59000000.
+INSERT gs_country INTO TABLE gt_country.
+
+*( Step 36.4) Printing the country internal table in its initial state on the list screen
+*(*
+* -> 'Ordered internal table list'
+* FORMAT COLOR COL_HEADING.
+* 10 'Countries' , 50 'Capitals' , 70 'Population' -> print
+
+* FORMAT COLOR COL_NORMAL
+* LOOP At ... into ...
+*   10 gs_country-country_name, 50 gs_country-capital, 70 gs_country-population -> print
+*
+**)
+WRITE:/ 'Ordered internal table list' .
+ULINE.
+FORMAT COLOR COL_HEADING.
+WRITE :/10 'Country', 50 'Capital', 70 'Population' .
+FORMAT COLOR COL_NORMAL.
+
+LOOP AT gt_country INTO gs_country.
+  WRITE:/10 gs_country-country_name, 50 gs_country-capital, 70 gs_country-population.
+ENDLOOP.
+
+The result if you run the program
+
+
+
+
+*The description of the program code is as follows:
+*( Step 36.1): Define the structure type variable named GS_COUNTRY.
+*( Step 36.2): ​​Defining the sorted internal table GT_COUNTRY so that the country name field is the sort field.
+*( Step 36.3) Filling the internal table GT_COUNTRY using the INSERT command.
+*( Step 36.4): Printing the contents of GT_COUNTRY internal table  to the screen.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*&---------------------------------------------------------------------*
+*& Report ZBA_EXAMPLE_37
+*&---------------------------------------------------------------------*
+*& Author   : ......
+*& Subject 	: Sorted internal tablo - READ TABLE..WITH TABLE KEY, READ TABLE..INDEX
+*& Date     : ......
+*&---------------------------------------------------------------------*
+* A single record from the sorted internal tables can be read using the READTABLE...WITH TABLE KEY command or the READ TABLE ... INDEX command.
+*--------------------------------------------------------------------*
+
+REPORT ZBA_example_37.
+*( Step 37.1) Defining the structure variable to hold the country information
+*(* gs_country    -> structure
+*   country_name  -> character, 30,
+*   capital       -> character, 20,
+*   population    -> integer
+* *)
+
+DATA : BEGIN OF gs_country,
+         country_name TYPE c LENGTH 30,
+         capital      TYPE c LENGTH 20,
+         population   TYPE i,
+       END OF gs_country.
+
+* ( Step 37.2) Defining the sorted internal table to hold the Country List
+* (* gt_country -> like SORTED TABLE OF ... WITH UNIQUE KEY country_name *)
+
+DATA gt_country LIKE SORTED TABLE OF gs_country
+                  WITH UNIQUE KEY country_name.
+
+*(Step 37.3) Populating the country internal table with country information
+*(* 'Germany', 'Berlin', 81500000
+* append gs_country -> gt_country
+*
+*USA', 'Washington', 320000000
+* append gs_country -> gt_country
+
+* 'Turkey', 'Ankara' 78000000
+* append gs_country -> gt_country
+
+* 'France', 'Paris', 66 million
+* append gs_country -> gt_country
+
+* 'Italy', 'Rome', 59000000
+* append gs_country -> gt_country
+*)
+gs_country-country_name = 'Germany'.
+gs_country-capital = 'Berlin'.
+gs_country-population = 81500000.
+INSERT gs_country INTO TABLE gt_country.
+
+CLEAR gs_country.
+gs_country-country_name = 'USA'.
+gs_country-capital = 'Washington'.
+gs_country-population = 320000000.
+INSERT gs_country INTO TABLE gt_country.
+
+CLEAR gs_country.
+gs_country-country_name = 'Turkey'.
+gs_country-capital = 'Ankara'.
+gs_country-population = 78000000.
+INSERT gs_country INTO TABLE gt_country.
+
+
+CLEAR gs_country.
+gs_country-country_name = 'France'.
+gs_country-capital = 'Paris'.
+gs_country-population = 660000000.
+INSERT gs_country INTO TABLE gt_country.
+
+CLEAR gs_country. gs_country-country_name = 'Italy'.
+gs_country-capital = 'Rome'.
+gs_country-population = 59000000.
+INSERT gs_country INTO TABLE gt_country.
+
+* ( Step 37.4) Printing the country internal table in its initial state on the list screen
+*(*
+* -> 'Ordered internal table list'
+* FORMAT COLOR COL_HEADING.
+* 10 'Countries' , 50 'Capitals' , 70 'Population' -> print
+
+* FORMAT COLOR COL_NORMAL
+* LOOP At ... into ...
+* 10 gs_country-country_name, 50 gs_country-capital, 70 gs_country-population -> print
+*
+**)
+WRITE:/ 'Ordered internal table list' .
+ULINE.
+FORMAT COLOR COL_HEADING.
+WRITE :/10 'Country', 50 'Capital', 70 'Population' .
+FORMAT COLOR COL_NORMAL.
+
+LOOP AT gt_country INTO gs_country.
+  WRITE:/10 gs_country-country_name, 50 gs_country-capital, 70 gs_country-population.
+ENDLOOP.
+
+*( Step 37.5) Reading from the internal table for France
+*(* READ TABLE... INTO... WITH TABLE KEY...
+*
+* Print to Screen Format 1: -> print to screen
+* Print to Screen Format 2: -> print to screen
+**)
+SKIP 2.
+WRITE / 'Read operation for France'.
+ULINE.
+READ TABLE gt_country
+     INTO gs_country
+     WITH TABLE KEY country_name = 'France' .
+
+IF sy-subrc IS INITIAL.
+  FORMAT COLOR COL_HEADING.
+  WRITE:/10 'Country', 50 'Capital', 70 'Population'.
+  FORMAT COLOR COL_NORMAL.
+  WRITE:/10 gs_country-country_name, 50 gs_country-capital, 70 gs_country-population.
+ELSE.
+  FORMAT COLOR COL_NEGATIVE.
+  WRITE / 'No record found in internal table for France' .
+ENDIF.
+
+*( Step 37.6) Reading from the internal table for the first row record
+*(* READ TABLE... INTO... INDEX...
+*
+* Print to Screen Format 1: -> print to screen
+* Print to Screen Format 2: -> print to screen' .
+*)
+SKIP 2.
+WRITE / 'Read operation for First Record'.
+ULINE.
+READ TABLE gt_country
+     INTO gs_country
+     INDEX 1.
+
+IF sy-subrc IS INITIAL.
+  FORMAT COLOR COL_HEADING.
+  WRITE:/10 'Country', 50 'Capital', 70 'Population'.
+  FORMAT COLOR COL_NORMAL.
+  WRITE:/10 gs_country-country_name, 50 gs_country-capital, 70 gs_country-population.
+ELSE.
+  FORMAT COLOR COL_NEGATIVE.
+  WRITE / 'No record found in internal table for France' .
+ENDIF.
+
+The result if you run the program
+
+
+
+
+
+
+*
+*The description of the program code is as follows:
+*( Step 37.1) : Define structure type variable named GSJJLKE.
+*( Step 37.2): Defining the sorted internal table with GTJJLKE is4m so that the country name field is the sort field.
+*( Step 37.3): Filling the internal table GT_ULKE using the INSERT command.
+*( Step 37.5): Reading the record for France from the sorted internal table.
+*( Step 37.6): Reading first record using index from Sorted Internal table.
+*
+*Print to screen format: 1
+** FORMAT COLOR COL_HEADING.
+** 10 'Countries', 50 'Capitals', 70 'Population' -> print
+** FORMAT COLOR COL_NORMAL.
+** 10 gs_country-country_name, 50 gs_country-capital, 70 gs_country-population -> print
+
+*Print to screen format: 2
+** FORMAT COLOR COL_NEGATIVE.
+** 'No record found in internal table for France' -> print
+**
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*&---------------------------------------------------------------------*
+*& Report ZBA_EXAMPLE_39
+*&---------------------------------------------------------------------*
+*& Author   : ......
+*& Subject 	: Using APPEND OF LINES command in Internal Table
+*& Date     : ......
+*&---------------------------------------------------------------------*
+* The APPEND LINES OF command is used to copy some or all records from one internal table to another.
+*--------------------------------------------------------------------*
+
+REPORT ZBA_EXAMPLE_39.
+
+*( Step 39.1) Defining the structure variable to hold the country information
+*(* gs_country    -> structure
+*   country_name  -> character, 30,
+*   capital       -> character, 20,
+*   population    -> integer
+* *)
+
+DATA : BEGIN OF gs_country,
+         country_name TYPE c LENGTH 30,
+         capital      TYPE c LENGTH 20,
+         population   TYPE i,
+       END OF gs_country.
+
+* ( Step 39.2) Defining the  internal tables to hold the Country List
+*(*   gt_country   -> like STANDART TABLE OF ...
+*     gt_country_2 -> like STANDART TABLE OF ...
+*     gt_country_3 -> like STANDART TABLE OF ...
+*)
+
+DATA gt_country   like STANDARD TABLE OF gs_country.
+DATA gt_country_2 like STANDARD TABLE OF gs_country.
+DATA gt_country_3 like STANDARD TABLE OF gs_country.
+
+*(Step 39.3) Populating the country internal table with country information
+*(* 'Germany', 'Berlin', 81500000
+* append gs_country -> gt_country
+*
+*USA', 'Washington', 320000000
+* append gs_country -> gt_country
+
+* 'Turkey', 'Ankara' 78000000
+* append gs_country -> gt_country
+
+* 'France', 'Paris', 66 million
+* append gs_country -> gt_country
+
+* 'Italy', 'Rome', 59000000
+* append gs_country -> gt_country
+*)
+gs_country-country_name = 'Germany'.
+gs_country-capital = 'Berlin'.
+gs_country-population = 81500000.
+INSERT gs_country INTO TABLE gt_country.
+
+CLEAR gs_country.
+gs_country-country_name = 'USA'.
+gs_country-capital = 'Washington'.
+gs_country-population = 320000000.
+INSERT gs_country INTO TABLE gt_country.
+
+CLEAR gs_country.
+gs_country-country_name = 'Turkey'.
+gs_country-capital = 'Ankara'.
+gs_country-population = 78000000.
+INSERT gs_country INTO TABLE gt_country.
+
+
+CLEAR gs_country.
+gs_country-country_name = 'France'.
+gs_country-capital = 'Paris'.
+gs_country-population = 660000000.
+INSERT gs_country INTO TABLE gt_country.
+
+CLEAR gs_country. gs_country-country_name = 'Italy'.
+gs_country-capital = 'Rome'.
+gs_country-population = 59000000.
+INSERT gs_country INTO TABLE gt_country.
+
+*(Step 39.4) Copy all records of GT COUNTRY internal table to GT_country2 internal table
+gt_country_2 = gt_country.
+
+*(Step 39.5) : Copying the records between the records (including 2 and 4) of the GT COUNTRY internal table (2nd and 4th) to the GT_country3 internal table
+APPEND LINES OF gt_country FROM 2 TO 4 TO gt_country_3.
+
+
+
+*( Step 39.6) : Printing the GT_country_2 internal table in its initial state on the list screen
+*(*
+* -> 'Ordered internal table list'
+* FORMAT COLOR COL_HEADING.
+* 10 'Countries' , 50 'Capitals' , 70 'Population' -> print
+
+* FORMAT COLOR COL_NORMAL
+* LOOP At ... into ...
+* 10 gs_country-country_name, 50 gs_country-capital, 70 gs_country-population -> print
+*
+**)
+
+WRITE:/ 'GT_country_2 internal table list' .
+ULINE.
+FORMAT COLOR COL_HEADING.
+WRITE :/10 'Country', 50 'Capital', 70 'Population' .
+FORMAT COLOR COL_NORMAL.
+
+LOOP AT gt_country_2 INTO gs_country.
+  WRITE:/10 gs_country-country_name, 50 gs_country-capital, 70 gs_country-population.
+ENDLOOP.
+
+
+*( Step 39.7) : Printing the GT_country_3 internal table in its initial state on the list screen
+*(*
+* -> 'Ordered internal table list'
+* FORMAT COLOR COL_HEADING.
+* 10 'Countries' , 50 'Capitals' , 70 'Population' -> print
+
+* FORMAT COLOR COL_NORMAL
+* LOOP At ... into ...
+* 10 gs_country-country_name, 50 gs_country-capital, 70 gs_country-population -> print
+*
+**)
+SKIP 2.
+WRITE:/ 'GT_country_3 internal table list' .
+ULINE.
+FORMAT COLOR COL_HEADING.
+WRITE :/10 'Country', 50 'Capital', 70 'Population' .
+FORMAT COLOR COL_NORMAL.
+
+LOOP AT gt_country_3 INTO gs_country.
+  WRITE:/10 gs_country-country_name, 50 gs_country-capital, 70 gs_country-population.
+ENDLOOP.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+The result if you run the program
+
+
+
+*( Step 39.1): Defining the structure variable named GS_COUNTRY.
+*( Step 39.2): Define the Standard internal tables GT_COUNTRY, GT_COUNTRY_2 and GT_COUNTRY_3.
+*( Step 39.3): Populating the GT_country internal table with records.
+*( Step 39.4): Copying the records of the GT_COUNTRY internal table to the GT_COUNTRY_2 internal table.
+*( Step 39.5): Printing the contents of the internal table to the screen.
+*( Step 39.6): Copying the records from the 2nd to the 4th record (including 2 and 4)
+*              from the GT_COUNTRY internal table into the internal table GT_COUNTRY_3.
+*( Step 39.7): Printing the contents of the internal table to the screen.
+*
+
+
+
+
+
+
+
