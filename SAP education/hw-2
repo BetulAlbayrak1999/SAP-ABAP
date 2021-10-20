@@ -1,0 +1,565 @@
+*&---------------------------------------------------------------------*
+*& Report ZBA_EXAMPLE_14
+*&---------------------------------------------------------------------*
+*& Author   : ......
+*& Subject 	: Using Structure type variable
+*& Date     : ......
+*&---------------------------------------------------------------------*
+* In the example programs we have written so far, each of the variables were of type that can hold only one value.
+* In the ABAP/4 programming language, Variables of type Structure, which are combinations of multiple values and fields, can also be defined.
+* For example, a customer's name, surname, address, and phone number can be fields of a customer variable defined of type Structure.
+*&---------------------------------------------------------------------*
+
+
+
+REPORT ZBA_EXAMPLE_14.
+
+* Step (14.1) Defining the customer structure variable
+*( gs_customer1   -> structure name
+*   name          -> character 30,
+*   surname       -> character 30,
+*   address       -> string,
+*   phone_number  -> numeric character 10,
+* )
+
+DATA : BEGIN OF gs_customer1,
+         name TYPE c LENGTH 30,
+         surname TYPE c LENGTH 30,
+         address TYPE string,
+         phone_number TYPE n LENGTH 10,
+       END OF gs_customer1.
+
+* Step (14.2) is the first of the second customer variable.
+* by reference to the customer variable
+* definition
+*( gs_customer2 LIKE gs_customer1 )
+
+DATA gs_customer2 LIKE gs_customer1.
+
+* Step (14.3) defining the personnel structure variable
+* ( gs_personal -> structure name
+* surname -> character 40
+* name -> character 30
+* age -> integer
+
+DATA : BEGIN OF gs_personnel,
+         surname TYPE c LENGTH 40,
+         name    TYPE c LENGTH 30,
+         age     TYPE i,
+       END OF gs_personnel.
+
+* Assigning values ​​to the fields of the first customer variable in step (14.4)
+*(* gs_customer1-name
+* gs_customer1-surname
+* gs_customer1-address
+* gs_customer1-phone_number
+*)
+gs_customer1-name           = 'Cemil'.
+gs_customer1-surname        = 'Aksel'.
+gs_customer1-address        = 'Atatürk Caddesi. Istanbul'.
+gs_customer1-phone_number   = '009012345'.
+
+* Step (14.5) printing the first customer information on the screen
+*(* Customer 1 Information
+* gs_customer1-name
+* gs_customer1-surname
+* gs_customer1-address
+* gs_customer1-phone_number
+*)
+
+WRITE / 'Customer 1 Information'.
+WRITE / gs_customer1-name.
+WRITE / gs_customer1-surname.
+WRITE / gs_customer1-address.
+WRITE / gs_customer1-phone_number.
+ULINE.
+*
+* Step (14.5)assigning the second customer information to the first customer information
+*( gs_customer2 <- gs_customer1 )
+
+gs_customer2 = gs_customer1.
+
+* 'customer2 name'
+* gs_customer2-name printing
+
+SKIP 1.
+WRITE : / 'Customer2 name' .
+WRITE : / gs_customer2-name.
+ULINE.
+
+* Step (14.6) Using the MOVE-CORRESPONDING command of the fields of the structure type variable named GS_customer1,
+* Assigning values ​​to the same named fields of the structure type variable named GS_PERSONEL
+
+MOVE-CORRESPONDING gs_customer1 TO gs_personnel.
+
+* 'Personnel-name-surname'
+*  gs_personnel-name
+*  gs_personel-surname -> screen print.
+SKIP 1.
+WRITE / 'Personnel-name-surname'.
+WRITE: / gs_personnel-name,
+       / gs_personnel-surname.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*The result if you run the program
+
+
+
+*Step (14.1) Defining the structure type variable named GS_customer1. Structure type variables are defined by entering the fields of the structure variable and the data types of these fields between the BEGIN OF...END OF commands.
+*In the example, it is seen that the customer variable consists of name, surname, address and phone_number fields.
+
+*Step (14.2): The structure type variable named GS_customer2 is created with the same type as the variable named GS_customer.
+*Step (14.3): Defining the structure type variable named GS_PERSONEL.
+*Step (14.4): Assigning values ​​to the fields of the variable named GS_customer1. The - sign is used to access the fields of Structure type variables.
+*Step (14.5): Assigning the values ​​of the fields of the variable named GS_customer1 to the fields of the variable named GS_customer2.
+*Step (14.6): Assigning the values ​​of the fields of the structure type variable named GS_CUSTOMER1 to the same named fields of the structure type variable named GS_PERSONNEL using the MOVE-CORRESPONDING command.		
+
+
+
+
+
+
+
+
+
+*&---------------------------------------------------------------------*
+*& Report ZBA_EXAMPLE_15
+*&---------------------------------------------------------------------*
+*& Author   : ......
+*& Subject 	: Use of hierarchical Structure variables
+*& Date     : ......
+*&---------------------------------------------------------------------*
+* A structure type variable will be defined that holds personnel information.
+* The address and phone number fields of the personnel variable will also be defined as structure type variables.
+* This will demonstrate the use of hierarchical structure variables.
+*&---------------------------------------------------------------------*
+
+REPORT ZBA_EXAMPLE_15.
+
+*Step (15.1) Defining the address structure variable
+*(* gs_address    -> structure
+*   avenue        -> character 40
+*   street        -> character 40
+*   house_number  -> numeric character 4
+*   post_code -> numeric character 5
+* )
+
+DATA : BEGIN OF gs_address,
+         avenue       TYPE c LENGTH 40,
+         street       TYPE c LENGTH 40,
+         house_number TYPE n LENGTH 4,
+         post_code    TYPE n LENGTH 5,
+       END OF gs_address.
+
+* Step (15.2) Defining the Phone Number structure variable
+*(*
+* gs_phone_no  -> structure
+* country_code -> numeric character 4
+* number       -> numeric character 10
+*)
+
+DATA : BEGIN OF gs_phone_no,
+         country_code TYPE n LENGTH 4,
+         number       TYPE n LENGTH 10,
+       END OF gs_phone_no.
+
+* Step (15.3) Defining the personnel structure variable
+*(*
+*
+* personnel   -> structure
+* name        -> character 30
+* surname     -> character 30
+* address     -> structure gs_address
+* phone_no    -> structure gs_phone_no
+**)
+DATA : BEGIN OF gs_personnel,
+         name       TYPE c LENGTH 30,
+         surname    TYPE c LENGTH 30,
+         address    LIKE gs_address,
+         phone_no   LIKE gs_phone_no,
+       END OF gs_personnel.
+
+
+
+* Step (15.4) Filling the personnel information and printing the information on the screen.
+*(*
+* gs_personnel-name
+* gs_personnel-surname
+* gs_personnel-address-avenue
+* gs_personnel-address-street
+* gs_personnel-address-house_no
+* gs_personnel-address-post_code
+* gs_personel-phone_no-country_code
+* gs_personel-phone_no-number
+
+* gs_personnel -> print to screen
+*)
+
+
+gs_personnel-name                     = 'Cemil'.
+gs_personnel-surname                  = 'Aksel'.
+gs_personnel-address-avenue           = 'Ataturk Caddesi'.
+gs_personnel-address-street           = 'Misak-i Milli Sokak'.
+gs_personnel-address-house_number     = '1881'.
+gs_personnel-address-post_code        = '11111'.
+gs_personnel-phone_no-country_code    = '0090'.
+gs_personnel-phone_no-number          = '9876543210'.
+
+WRITE / gs_personnel.
+
+*The result if you run the program
+
+
+
+*The description of the program code is as follows:
+*Step (15.1) : Defining the structure type variable named GS_ADDRESS.
+*Step (15.2) : GS_PERSONNEL Defining a named structure type variable.
+*              The address and telephone number fields of the personnel are defined using the previously defined GS_ADDRESS and GS_PHONE_NO structure type variables.
+*Step (15.3): Entering the personnel information into the structure fields and printing the personnel information on the screen.
+
+
+
+
+
+
+
+
+
+
+*&---------------------------------------------------------------------*
+*& Report ZBA_EXAMPLE_16
+*&---------------------------------------------------------------------*
+*& Author   : ......
+*& Subject 	: Using Include Structure
+*& Date     : ......
+*&---------------------------------------------------------------------*
+*& In this example, a variable of type structure will be created that holds the information of an employee.
+*& The phone number and address information of the personnel will be added using the INCLUDE STRUCTURE command at the same level as the personnel variable's own fields.
+*&---------------------------------------------------------------------*
+REPORT ZBA_example_16.
+*Step (15.1) Defining the address structure variable
+*(* gs_address    -> structure
+*   avenue        -> character 40
+*   street        -> character 40
+*   house_number  -> numeric character 4
+*   post_code     -> numeric character 5
+* )
+
+DATA : BEGIN OF gs_address,
+         avenue    TYPE c LENGTH 40,
+         street    TYPE c LENGTH 40,
+         house_no  TYPE n LENGTH 4,
+         post_code TYPE n LENGTH 5,
+       END OF gs_address.
+
+* Step (15.2) Defining the Phone Number structure variable
+*(*
+* gs_address   -> structure
+* country_code -> numeric character 4
+* number       -> numeric character 1
+*)
+
+DATA : BEGIN OF gs_phone_no,
+         country_code TYPE n LENGTH 4,
+         number       TYPE n LENGTH 10,
+       END OF gs_phone_no.
+
+* Step (15.3) Defining the personnel structure variable
+*(*
+*
+* gs_personnel -> structure
+* name         -> character 30
+* surname      -> character 30
+*  include structure gs_address
+*  include structure gs_phone_no
+**)
+
+DATA : BEGIN OF gs_personnel,
+
+         name    TYPE c LENGTH 30,
+         surname TYPE c LENGTH 30.
+    INCLUDE STRUCTURE gs_address.
+    INCLUDE STRUCTURE gs_phone_no.
+
+DATA :       END OF gs_personnel.
+
+*Step (15.4) Filling the personnel information and printing the information on the screen.
+*(*
+* gs_personnel-name
+* gs_personnel-surname
+* gs_personnel-avenue
+* gs_personnel-street
+* gs_personnel-house_no
+* gs_personnel-post_code
+* gs_personnel-country_code
+* gs_personnel-number
+
+* gs_personnel -> print to screen
+*)
+
+
+gs_personnel-name         = 'Cemil'.
+gs_personnel-surname      = 'Aksel'.
+gs_personnel-avenue       = 'Ataturk Caddesi'.
+gs_personnel-street       = 'Misak-i Milli Sokak'.
+gs_personnel-house_no     = '1881'.
+gs_personnel-post_code    = '11111'.
+gs_personnel-country_code = '0090'.
+gs_personnel-number       = '9876543210'.
+
+WRITE / gs_personnel.
+
+*The result if you run the program
+
+
+* Address and telephone information are added to the personnel information at the same level with the INCLUDE STRUCTURE command.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*&---------------------------------------------------------------------*
+*& Report ZBA_EXAMPLE_29
+*&---------------------------------------------------------------------*
+*& Author   : ......
+*& Subject 	: Adding and reading records to internal tables
+*& Date     : ......
+*&---------------------------------------------------------------------*
+* Most of the programs you write with the SAP ABAP/4 programming language will be programs that work with the records you choose from the database tables.
+* It is possible to define data objects called internal tables in ABAP/4 programming language to keep the records you selected from database tables in the program.
+*
+*There are three different types of internal tables in the ABAP/4 programming language.
+* These table types are STANDARD, SORTED and HASHED internal table types.
+* Records can be added to internal table types defined as STANDARD, regardless of any order or key values.
+* Records in STANDARD internal tables can be read by querying the values ​​of certain columns or by directly giving the index of the record to be read.
+* The records in the SORTED internal tables are kept sequentially by the system according to the fields given when the table is defined.
+* Records in SORTED internal tables can be read according to the values ​​of certain columns or by directly giving the index of the record to be read.
+* HASHED records in internal tables, on the other hand, are the records that are kept so that a record is found only once, according to the key fields given when the table is defined.
+* Records in HASHED internal tables can only be read according to the values ​​in their columns, it is not possible for HASHED internal tables to read a particular record directly using index.
+*&------------------------------------------------ ---------------------*
+*Adding records to internal tables and reading records:
+*Records can be added to internal tables with the APPEND command in the program.
+* Or records from the database can be read into internal tables using ABAP OPEN SQL commands.
+* The LOOP...ENDLOOP command is used to loop the records in the internal table.
+*&------------------------------------------------ ---------------------*
+
+REPORT ZBA_EXAMPLE_29.
+*Step (29.1) Defining the variables to which the numbers will be assigned and the internal tables to which the variables will be added.
+*(* gt_numbers           -> STANDARD TABLE, integer
+*   gt_numbers_squares   -> TABLE , integer
+*   gv_number_square     -> integer
+*   gv_number            -> integer
+**)
+
+DATA gt_numbers           TYPE STANDARD TABLE OF i.
+DATA gt_numbers_squares   TYPE TABLE OF i.
+DATA gv_number_square     TYPE i.
+DATA gv_number            TYPE i.
+
+
+
+
+
+* Step (29.2) Adding the numbers from 1 to 10 and their squares into two separate internal tables
+*(*
+*  sy-index         -> gt_numbers
+*  gv_number_square -> gt_numbers_squares
+*) 
+DO 10 TIMES.
+  APPEND sy-index TO gt_numbers.
+  gv_number_square = sy-index * sy-index.
+  APPEND gv_number_square TO gt_numbers_squares .
+ENDDO.
+
+
+*Printing the list of numbers to the screen with the Loop command.
+*( Loop gt_numbers  -> gv number
+*    gv_number  	  -> print to screen.
+*)
+LOOP AT gt_numbers INTO gv_number.
+  IF sy-tabix = 1.
+    WRITE / 'list of numbers'.
+    SKIP 1.
+    ULINE.
+  ENDIF.
+  WRITE / gv_number LEFT-JUSTIFIED.
+ENDLOOP.
+
+SKIP 2.
+*Printing the list of squares of numbers to the screen with the Loop command
+*(* Loop gt_nummbers_squares -> gv_number.
+*   gv_number                -> print to screen.
+**)
+LOOP AT gt_numbers_squares INTO gv_number.
+  IF sy-tabix = 1.
+    WRITE / 'list of numbers squares'.
+    SKIP 1.
+    ULINE.
+  ENDIF.
+  WRITE : / gv_number LEFT-JUSTIFIED.
+ENDLOOP.
+
+
+
+*The result if you run the program
+
+
+
+*In the program, the numbers from one to ten and the squares of these numbers are added to different internal tables, and then the contents of these internal tables are written to the screen.
+*Step (29.1): Defining the variables to which the numbers will be assigned and the internal tables to which the variables will be added.
+*In the program, defined internal tables are defined as Standard internal tables.
+*If the table type is not specified while defining, the type of the table is automatically Standard internal table. There is no upper limit to the number of records that internal tables can hold, as records are added to the internal table, the number of
+* records of the internal table increases.
+*Step (29.2) : Numbers from one to ten are added to the internal table named gt_numbers within the DO...ENDDO loop, and the squares of these numbers are added to the internal table named GT_NUMBERS_SQUARES.
+* The APPEND command is used to add a new record to the end of an internal table.
+*Step (29.3) : Numbers and their squares are written to the screen by programming the loop on the internal tables with the LOOP...ENDLOOP command.
+*In the LOOP command, the records in the internal table are assigned to the variable that comes after INTO one by one, then the ABAP code between LOOP...ENDLOOP is processed, when the ENDLOOP command comes, the loop continues from the next record in the
+*Internal table.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*&---------------------------------------------------------------------*
+*& Report ZBA_EXAMPLE_30
+*&---------------------------------------------------------------------*
+*& Author   : ......
+*& Subject 	:  Using CONTINUE, EXIT with LOOP ENDLOOP
+*& Date     : ......
+*&---------------------------------------------------------------------*
+*& With the LOOP...ENDLOOP command, the records in the internal table are processed one by one.
+* If certain records are not wanted to be processed or if a certain condition is desired to exit the loop, CONTINUE and EXIT commands should be used respectively.
+*&---------------------------------------------------------------------*
+
+REPORT ZBA_EXAMPLE_30.
+
+
+*Step (30.1) Define the variables to assign numbers and internal tables to add variables.
+*(* gt_numbers         -> STANDARD TABLE, integer
+*   gt_numbers_squares  -> TABLE , integer
+*   gv_number_square   -> integer
+*   gv_number          -> integer
+**)
+
+DATA gt_numbers         TYPE STANDARD TABLE OF i.
+DATA gt_numbers_squares  TYPE TABLE OF i.
+DATA gv_number_square   TYPE i.
+DATA gv_number          TYPE i.
+
+*Step (30.2) Adding the numbers from 1 to 10 and their squares into two separate internal tables
+*(**  sy-index         -> gt_numbers
+*     gv_number_square -> gt_numbers_squares
+**)
+DO 10 TIMES.
+  APPEND sy-index TO gt_numbers.
+  gv_number_square = sy-index * sy-index.
+  APPEND gv_number_square TO gt_numbers_squares .
+ENDDO.
+
+
+*(30.3) printing the list of numbers from 1 to 7 on the screen with the Loop command.
+*( gt_numbers -> gv number
+* gv_number -> print to screen.
+*)
+LOOP AT gt_numbers INTO gv_number TO 7.
+  IF sy-tabix = 1.
+    WRITE / 'list of numbers'.
+    SKIP 1.
+    ULINE.
+  ENDIF.
+* *(30.4) If the number is 3, continue from the next number, otherwise print the number on the list screen
+  IF gv_number = 3.
+    CONTINUE.
+  ELSE.
+    WRITE / gv_number LEFT-JUSTIFIED.
+  ENDIF.
+ENDLOOP.
+
+SKIP 2.
+**(30.5) Printing the list of squares of numbers from the 2nd to the 8th number with the Loop command
+*(* gt_num_squares -> gv_num.
+* gv_number -> print to screen.
+**)
+LOOP AT gt_numbers_squares INTO gv_number FROM 2 TO 8 .
+  IF sy-tabix = 2.
+    WRITE / 'list of number squares'.
+    SKIP 1.
+    ULINE.
+  ENDIF.
+* *(30.6) exit loop command if square of number is 40
+  IF gv_number >= 40.
+    EXIT.
+  ELSE.
+    WRITE : / gv_number LEFT-JUSTIFIED.
+  ENDIF.
+
+ENDLOOP.
+
+
+
+
+*Step (30.1): Defining the variables to which the numbers will be assigned and the internal tables to which the variables will be added. In the program, defined internal tables are defined as Standard internal tables.
+* If the table type is not specified while defining, the type of the table is automatically Standard internal table,
+* there is no upper limit for the number of records that internal tables can keep, the number of records of the internal table increases as records are added to the internal table.
+
+*Step (30.2): Numbers from one to ten are added to the internal table named GT_NUMBERS within the DO...ENDDO loop, and the squares of these numbers are added to the internal table named GT_NUMBERS_SQUARES.
+*APPEND command is used to add a new record to the end of an internal table.
+
+*Step (30.3): Loop is programmed for the first 7 records in the internal table GT_numbers. Using the LOOP..INTO..TO command, it is specified that the loop should run from the first record to the first record after the TO keyword.
+*In the loop, if the value read from the internal table is three, it is programmed with CONTINUE to continue from the next record in the internal table, otherwise the value read should be printed on the screen.
+*Record indexes in internal tables start from one, in other programming languages ​​the Index of the first array elements is usually zero.
+
+*Step (30.5) Printing the 2nd and 8th records (including these records) in the internal table where the squares of the numbers are kept.
+* If the value to be printed is greater than or equal to 40, the LOOP cycle is terminated.
+
+
+
