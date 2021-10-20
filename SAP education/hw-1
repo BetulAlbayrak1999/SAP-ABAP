@@ -1,0 +1,1039 @@
+
+*&------------------------------------------------ ---------------------*
+*& Report ZBA_EXAMPLE_3
+*&------------------------------------------------ ---------------------*
+*& Author   : ......
+*& Subject   : Using variables in ABAP4 programs
+*& Date     : ......
+*&------------------------------------------------ ---------------------*
+REPORT ZBA_example_3.
+
+* Step (3.1): Defining integer variables (gv_number1, gv_number2) 
+to be used in operations.
+
+DATA gv_numberl TYPE i.
+DATA gv_number2 TYPE i.
+
+* Step (3.2): Defining the variables (gv_addition_result, gv_subtraction_result, gv_multiplication_result, gv_division_result) to hold the process results.
+
+DATA gv_addition_result           TYPE i.
+DATA gv_subtraction_result        TYPE i.
+DATA : gv_multiplication_result   TYPE i,
+       gv_divison_result           TYPE i.
+
+* Step (3.3): assigning values to numbers ( gv_number -> 15, gv_number2 -> 5 )
+gv_numberl = 15.
+gv_number2 = 5.
+
+* Step (3.4): Performing four operations with numbers (gv_addition_result, gv_subtraction_result, gv_multiplication_result, gv_division_result +,-,*, /)
+
+gv_addition_result        = gv_numberl + gv_number2 .
+gv_subtraction_result     = gv_numberl - gv_number2 .
+gv_multiplication_result  = gv_numberl * gv_number2 .
+gv_divison_result         = gv_numberl / gv_number2 .
+
+
+* Step (3.5): The numbers (gv_number1, gv_number2),and your results (gv_addition_result, gv_subtraction_result, gv_multiplication_result, gv_division_result) to be printed on the screen
+WRITE :/ ' First Number  : ', gv_numberl.
+WRITE :/ ' Second Number : ', gv_number2.
+SKIP 1.
+ULINE.
+
+WRITE : / 'addition_result        : '  , gv_addition_result       ,
+         / 'subtraction_result     : '  , gv_subtraction_result    ,
+         / 'multiplication_result  : '  , gv_multiplication_result ,
+         / 'division_result        : '  , gv_divison_result        .
+
+
+
+
+
+*The result if you run the program
+
+
+
+*Step (3.1): Between these lines, program variables are defined
+* to hold the numbers to be used in the operations and the results of the operation.
+
+*Step (3.3): Assigning values to variables GV_NUMBER1 and GV_NUMBER2.
+
+*Step (3.4): In these lines, four operations are performed with ABAP/4 mathematical operation
+*commands using the variables GV_NUMBER1 and GV_NUMBER2 and the result is assigned to global variables.
+
+*In the ABAP/4 programming language, the + character is used for addition,
+* the * character is used for multiplication, the - character is used for subtraction, and the / character is used for division.
+
+*Step (3.5): Between these lines, the variables used for operations and operation results are printed on the screen.
+*The SKIP command used in these lines is used to leave a line space on the screen, the number of lines to be left in the command should
+*be written after SKIP. The ULINE command is used to draw a horizontal line on the screen.
+
+
+
+
+
+
+
+
+
+
+*&---------------------------------------------------------------------*
+*& Report ZBA_EXAMPLES_4
+*&---------------------------------------------------------------------*
+*& Author   : ......
+*& Subject   : Div ve Mod operations
+*& Date     : ......
+*&---------------------------------------------------------------------*
+* In ABAP/4 programming language, while quotient is found by integer 
+* division operation using DIV operator,
+* remainder can be found from division operation with MOD operation.
+*&---------------------------------------------------------------------*
+
+REPORT ZBA__example_4.
+
+* Step (4.1) Defining integer number variables ( gv_number1, gv_number2 )  to be used in operations
+
+DATA gv_number1     TYPE i.
+DATA gv_number2     TYPE i.
+
+* Step (4.2) : Defining the variables ( gv_mod_result, gv_div_result ) to hold the proses results.
+DATA gv_mod_result  TYPE i.
+DATA gv_div_result  TYPE i.
+
+* Step (4.3): Assigning values to numbers ( gv_numberl -> 14, gv_number2 -> 3 )
+
+gv_number1 = 14.
+gv_number2 = 3.
+
+* Step (4.4) : Performing  MOD and DIV operations  ( gv_mod_result, gv_div_result -> to use  gv_number1, gv_number_2)
+
+gv_mod_result  = gv_number1 MOD gv_number2.
+gv_div_result  = gv_number1 DIV gv_number2.
+
+* Step (5.5) : The numbers ( gv_number1, gv_number2) and your results ( gv_mod_result, gv_div_result) to be printed on the screen.
+
+WRITE  : / ' First Number  : ', gv_number1,
+         / ' Second Number : ', gv_number2,
+         / ' Mod Result    : ', gv_mod_result,
+         / ' Div Result    : ', gv_div_result.
+
+
+
+
+
+
+
+
+
+*The result if you run the program
+
+
+* Step (4.1) Defining program global variables gv_number1, gv_number2.
+* Step (4.2) Defining global result variables  gv_mod_result, gv_div_result
+* Step (4.3) Assigning values to variables     gv_number1, gv_number2.
+* Step (4.4) Performing MOD and DIV operations  ( gv_mod_result, gv_div_result -> to use  gv_number1, gv_number_2)
+* Step (5.5) Print variables and operation results to the screen.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*&---------------------------------------------------------------------*
+*& Report ZBA_EXAMPLE_5
+*&---------------------------------------------------------------------*
+*& Author   : ......
+*& Subject   : Using variables in ABAP4 programs
+*& Date     : ......
+*&---------------------------------------------------------------------*
+* In the ABAP/4 programming language, the data type p is used to define 
+*  decimal numbers,
+* how many digits the decimal number can take after the comma is determined* by using the DECIMALS suffix in the variable definition.
+* In decimal numbers, the integer part and the decimal part are separated  * from each other. are separated using the (dot) character,
+* decimal numbers must be enclosed in single quotation marks.
+*&---------------------------------------------------------------------*
+REPORT ZBA_EXAMPLE_5.
+
+* Step (5.1): Define the constant gc_times as an integer and an initial 
+value of 4 with the CONSTANS command.
+
+CONSTANTS gc_times type i value 4.
+
+* Step (5.2) The number of variables to be used in operations (
+* gv_number1 integer initial value 10, 
+* gv_number2 integer, gv_number3 packed (p) decimals 2 initial value 3.75,
+* gv_sayi4 like gv_sayi3 )
+
+data gv_number1   type i value -10.
+data gv_number2   type i.
+data gv_number3   type p decimals 2 value '3.75'.
+data gv_number4   like gv_number3.
+
+* step (5.3) : Defining the variables gv_sonuc1, gv_sonuc2, gv_sonuc3, gv_sonuc4 to hold the operation result
+
+data : gv_result1  like gv_number3,
+       gv_result2  like gv_number3,
+       gv_result3  like gv_number3,
+       gv_result4  like gv_number3.
+
+* step (5.4) : Assigning values ​​to numbers
+* ( gv_number2 -> 5, gv_number4 -> -2.5 )
+gv_number2 = 5.
+gv_number4 = '-2.5'.
+
+* step (5.5) : Finding 4 times the numbers gv_result1, gv_result2, 
+* gv_result3, gv_result4
+* Assigning  to variables and printing the variables
+* gv_number1, gv_number2, gv_number3, gv_number4, gv_result1, gv_result2, gv_result3, gv_result4 to the screen.
+
+gv_result1  = gv_number1 * gc_times .
+gv_result2  = gv_number2 * gc_times.
+gv_result3  = gv_number3 * gc_times .
+gv_result4  = gv_number4 * gc_times .
+
+write : / 'first  number   : ', gv_number1,
+        / 'second number   : ', gv_number2,
+        / 'third  number   : ', gv_number3,
+        / 'fourth number   : ', gv_number4.
+
+SKIP 1.
+ULINE.
+
+
+write : / 'first result   : ', gv_result1,
+        / 'second result  : ', gv_result2,
+        / 'third result   : ', gv_result3,
+        / 'fourth result  : ', gv_result4.
+
+*The result if you run the program
+
+
+* In the program, different variables are defined and four times the value of these variables are calculated and printed on the screen.
+* The description of the program lines is as follows:
+* Steps(5.3):
+* Since the written programs are a program that calculates four times the variable values ​​
+* and the process of finding the four times does not change throughout the program,
+* the variable holding the value 4 was created with the CONSTANTS command and the value 4 was assigned as the initial value.
+* CONSTANTS command is used to create fixed program variables in ABAP/4 programs,
+* Constants created with the CONSTANTS command must be assigned a value
+* using the VALUE suffix.
+
+*STEP (5.2) : In these lines, an integer variable named GV_NUMBER1 with an initial value of -10 and a variable named GV_NUMBER2 are defined.
+
+*  With a decimal variable named GV_NUMBER3 with an initial value of 3.75,
+* Another variable with the name GV_NUMBER4 and data type like GV_NUMBER3 (TYPE P DECIMALS 2) is defined.
+* In the ABAP/4 programming language, you can set a variable to another previously defined variable in the program.
+* LIKE suffix can be used in the DATA command to define it in the same data type.
+
+* Step (5.4) : The variable GV_NUMBER2 is assigned a value of 5 and the variable GV_NUMBER4 is assigned a value of -2.5.
+
+* Step (5.5): In these lines, four times the variables GV_NUMBER1, 
+*GV_NUMBER2, GV.NUMBER3 and GV_NUMBER4, GV_RESULT1, GV_RESULT2, GV_RESULT3,*GV_RESULT4 are calculated and printed on the screen.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*&---------------------------------------------------------------------*
+*& Report ZBA_EXAMPLES_6
+*&---------------------------------------------------------------------*
+*&
+*& Author   : ......
+*& Subject   : Use of String C and N type variables
+*& Date     : ......
+*&---------------------------------------------------------------------*
+*
+* In the ABAP/4 programming language, the c (character) data type is the 
+* data type used to hold alphanumeric values,
+* such as name, surname values. Variables defined with the C data type can have a maximum length of 65535 characters.
+* The N data type is a numeric character data type, and variables defined 
+* using this data type can only contain numbers
+* and can be up to 65535 characters long.
+* The String data type is used to define variables that take values ​​
+*  that can change in length dynamically.
+*&---------------------------------------------------------------------*
+
+REPORT ZBA_EXAMPLE_6.
+
+* Step (6.1) Define constants to hold gender values
+* ( gc_male   -> character length 1, initial value 'M',
+*   gc_female -> character length 1, initial value 'F' )
+
+CONSTANTS : gc_male   TYPE c LENGTH 1 VALUE 'M',
+            gc_female TYPE c LENGTH 1 VALUE 'F'.
+
+* Step (6.2) Defining the variables to hold the personnel information
+* ( gv_personnel_name    -> character 20
+*   gv_personnel_surname -> character 25
+*   gv_gender            -> character 1
+*   gv_phone_no          -> numeric character 10
+*   gv_personnel_address -> string )
+
+DATA gv_personnel_name            TYPE c LENGTH 20.
+DATA gv_personnel_surname         TYPE c LENGTH 25.
+DATA gv_gender(1)                 TYPE c.
+DATA gv_phone_no                  TYPE n LENGTH 10.
+DATA gv_personnel_address         TYPE string.
+
+* Step (6.3) Assigning values ​​to personnel variables
+* ( gv_gender -> Constants defined gc_male, or gc_female)
+
+gv_personnel_name      = 'Cemil'.
+gv_personnel_surname   = 'Aksel'.
+gv_phone_no            = '555987*'.
+gv_personnel_address   = 'Atatürk Caddesi, Mustafa Kemal Sokak, No:7'.
+gv_gender              = gc_male.
+
+* Step (6.4) Printing the information of the personnel on the screen
+
+write : / ' Personnel name    : ', gv_personnel_name ,
+        / ' Personnel surname : ', gv_personnel_surname ,
+        / ' Phone number      : ', gv_phone_no ,
+        / ' Staff address     : ', gv_personnel_address ,
+        / ' Gender            : ', gv_gender .
+
+
+*The result if you run the program
+
+
+* In the program, the name, surname, etc. of a personnel member. information is printed on the screen.
+*The description of the program code is as follows:
+*Step (6.1): In these lines, two constants are defined to hold values ​​for male and female genders using the CONSTANTS keyword.
+* Constants are used to define variables whose value will never change throughout the program flow.
+*Step (6.2): ​​Defining the variables that will hold the personnel information.
+*Step (6.3): Assigning values ​​to variables.
+*Step (6.4): Printing the variable values ​​to the screen.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*&---------------------------------------------------------------------*
+*& Report ZBA_EXAMPLE_7
+*&---------------------------------------------------------------------*
+*& Author   : ......
+*& Subject   : Operations with string variables
+*& Date     : ......
+*&---------------------------------------------------------------------*
+REPORT ZBA_EXAMPLE_7.
+
+* step (7.1) Defining variables to hold personnel information
+* ( gv_personnel_name     -> character 20
+*   gv_personnel_name     -> character 25
+*   gv_phone_number       -> numeric character 10
+*   gv_personnel_address  -> string
+*   gv_combined_name      -> character 60
+*   gv_avenue             -> string
+*   gv_street             -> string
+*   gv_house_number       -> string
+
+*  )
+
+DATA gv_personnel_name      TYPE c LENGTH 20.
+DATA gv_personnel_surname   TYPE c LENGTH 25.
+DATA gv_phone_number        TYPE n LENGTH 10.
+DATA gv_personnel_address   TYPE string.
+DATA gv_combined_name(60).
+DATA gv_avenue              TYPE string.
+DATA gv_street              TYPE string.
+DATA gv_house_number        TYPE string.
+
+
+
+* Step ( 7.2) Assign personnel information.
+*( gv_personnel_name    -> your name
+* gv_personnel_surname  -> your surname
+* gv_phone_number       -> '555987'.
+* gv_personnel_adres     'Atatürk Caddesi,   Mustafa Kemal Sokak,   No:7'.
+*)
+
+gv_personnel_name       = 'Cemil'.
+gv_personnel_surname    = 'Aksel'.
+gv_phone_number         = '555987'.
+gv_personnel_address    = 'Atatürk Caddesi,      Mustafa Kemal Sokak,      No:7'.
+
+* Printing the information of the personnel on the screen
+
+* Step (7.3) Changing the personnel name to uppercase letters
+* gv_personnel_name -> Changing to uppercase letters ( TRANSLATE...UPPER CASE )
+* gv_personnel_name -> print to the screen
+
+TRANSLATE gv_personnel_name TO UPPER CASE.
+ WRITE : / 'Personnel name ( TRANSLATE...UPPER CASE  ) : ', gv_personnel_name.
+
+* Step (7.4) Changing the personnel name to lowercase letters
+* gv_personnel_name -> Changing to lowercase letters ( TRANSLATE...LOWER CASE )
+* gv_personnel_name -> print to the screen
+
+TRANSLATE gv_personnel_name TO LOWER CASE.
+ WRITE : / 'Personnel name ( TRANSLATE...LOWER CASE  ) : ', gv_personnel_name.
+
+
+* Step (7.5) Combining personnel_name and personnel surname with a space character.
+* Combine gv_personnel_name, gv_personnel_name with a space character and assign gv_combined_name. (CONCATENATE..BY SPACE)
+* gv_unit_name -> print to screen
+
+CONCATENATE gv_personnel_name
+             gv_personnel_surname
+             into gv_combined_name
+             SEPARATED BY space.
+
+ WRITE : / 'Composite name (CONCATENATE..BY SPACE):', gv_combined_name.
+
+
+* Step (7.6) Combining personnel_name and personnel surname with a - character.
+* Combine gv_personnel_name, gv_personnel_name with a space character and assign gv_combined_name. (CONCATENATE..BY -)
+* gv_unit_name -> print to screen
+
+CONCATENATE gv_personnel_name
+             gv_personnel_surname
+             into gv_combined_name
+             SEPARATED BY '-'.
+
+ WRITE : / 'Composite name (CONCATENATE..BY -):', gv_combined_name.
+
+* Step (7.7) Deletion of initial zeros by shifting the phone number to the left 4 characters
+* gv_phone_number -> shift left 4 characters. ( SHIFT..BY 4 PLACES)
+* gv_phone_number -> print to screen
+
+SHIFT gv_phone_number BY 4 PLACES LEFT.
+SKIP 1.
+
+WRITE :/ ' Phone Number( SHIFT..BY 4 PLACES) : 1' , gv_phone_number.
+
+
+* Step (7.8) Replacing the first 5 characters of the phone number with 6.
+* Replacing the first 5 characters in gv_phone_number with 6 ( REPLACE )
+* gv_phone_number -> print to screen
+
+REPLACE '5' IN gv_phone_number WITH '6'.
+WRITE :/ 'Phone Number( REPLACE ):', gv_phone_number.
+
+
+* Step (7.9) Replacement of all 5 characters in the phone number with 6.
+* Replacing the 5 characters in gv_phone_number with 6 ( REPLACE. . ALL OCCURRENCES OF )
+* gv_phone_number -> print to screen
+
+REPLACE ALL OCCURRENCES OF '5' IN gv_phone_number WITH '6'.
+WRITE :/ 'gv_phone_number Number ( REPLACE. . ALL OCCURRENCES OF ):', gv_phone_number.
+
+
+* Printing the personnel address
+* gv_personnel_adres -> print to screen
+SKIP 1.
+WRITE :/ 'Personnel Address: ', gv_personnel_address.
+
+* Step (7.10) Reducing the spaces between the words in the address to a space with the condense command
+* gv_personel_adres -> Condense command ( CONDENSE )
+CONDENSE gv_personnel_address.
+WRITE :/ 'Personnel Address( CONDENSE) :', gv_personnel_address.
+
+* Step (7.11) Deleting all the spaces between the words in the address with the condense command
+* gv_personel_adres -> Condense no gaps command ( CONDENSE ... NO-GAPS )
+CONDENSE gv_personnel_address NO-GAPS.
+WRITE:/ 'Personnel Address( CONDENSE NO GAPS ) : ' , gv_personnel_address.
+
+* Step (7.12) With the split command, the avenue, street and house number of the address in comma character
+* assigning information to related variables
+* Assigning gv_personnel_address -> split to the variables gv_avenue, gv_street, gv_house_number in comma character (SPLIT ... AT ',' INTO ...)
+*gv_avenue,
+*gv_street,
+*gv_house number -> print to screen
+
+SPLIT gv_personnel_address AT ',' INTO gv_avenue
+                                       gv_street
+                                       gv_house_number.
+WRITE:/ 'Avenue       :', gv_avenue,
+      / 'Street       :', gv_street,
+      / 'House number :', gv_house_number.
+*
+
+
+
+
+
+
+
+
+
+
+*The result if you run the program
+
+
+
+*Operation Meaning
+
+*TRANSLATE TO UPPER CASE        : Converts the letters of the value of the given variable to uppercase
+
+*TRANSLATE TO LOVVER CASE       : Converts the letters of the value of the given variable to lowercase
+
+*CONCATENATE INTO               : Combines the values ​​of the given source.variables and prints them to the target variable
+
+*CONCATENATE INTO SEPARATED BY  : Combines the values ​​of the given source variables by separating them with the character given with SEPARATED BY and assigns this value to the target variable
+
+*REPLACE                        : It is used to search for a character in a variable and replace it with another character if found.
+
+*CONDENSE                       : If there is more than one space between words in a string variable, it reduces to a single space.
+
+*CONDENSEALL GAPS               : Removes all spaces between words in a string variable
+
+*SPLIT AT                       : Prints a string variable into target variables by splitting it into parts of the character given after the AT command
+
+
+
+*&---------------------------------------------------------------------*
+*& Report ZBA_EXAMPLE_8
+*&---------------------------------------------------------------------*
+*& Author   : ......
+*& Subject   : Ofset operations
+*& Date     : ......
+*&---------------------------------------------------------------------*
+* In the ABAP/4 programming language, the offset operation is used to read certain parts of the value of a variable of data type string, c or n.
+* Offset operation is programmed as variable+offset_start (number of characters to be read) on the variable to be applied.
+* For example, if you have a character type variable named gv_name and you want to read the first 4 characters of the name,
+* which is the value of this variable, you need to program the offset operation as gv_name+0(4).
+*&---------------------------------------------------------------------*
+
+REPORT ZBA_EXAMPLE_8.
+
+* ( Step 8.1 ) Define the program variables.
+* ( gv_sagesse_phone    -> numeric character 14.
+*   gv_country_code     -> numeric character 4.
+*   gv_phone_number     -> numeric character 7.
+*   gv_operator         -> numeric character 3.
+* )
+
+DATA gv_sagesse_phone     TYPE n LENGTH 14.
+DATA gv_country_code      TYPE n LENGTH 4.
+DATA gv_phone_number      TYPE n LENGTH 7.
+DATA gv_operator          TYPE n LENGTH 3.
+
+*( Step 8.2 )Assigning a value to the mobile phone number variable ( gv_sagesse_phone ->  '00905333525426' )
+* and printing gv_sagesse_phone
+
+gv_sagesse_phone = '00905333525426'.
+WRITE:/ 'SAGESSE Consulting Phone No:', gv_sagesse_phone.
+
+* ( Step 8.3 ) Finding the country code as the first four characters of the telephone number with the offset operation.
+*( gv_country_kodu -> first four characters of gv_sagesse_phone )
+*  gv_country_code -> print to screen
+*)
+
+gv_country_code = gv_sagesse_phone+0(4) .
+WRITE :/ 'Country code  :' , gv_country_code.
+
+* ( Step 8.4 ) Determination of the operator code as three characters from the 5th character of the phone number by offset operation.
+*( gv_operator -> gv_sagesse_tel_no ( 3 characters from the 5th character )
+* gv_operator -> print to screen
+*)
+
+gv_operator = gv_sagesse_phone+4(3) .
+WRITE :/ 'Operator      :', gv_operator.
+
+* ( Step 8.5 ) As the phone number, the mobile number as the remaining characters from the 7th character to the end of the variable.
+* ( gv_tel_no -> gv_sagesse_tel_no ( the remaining characters from the 7th character to the end of the variable )
+*   gv_tel_no -> print to screen
+
+gv_phone_number  = gv_sagesse_phone+7.
+WRITE :/ 'Tel No        :', gv_phone_number.
+
+*The result if you run the program
+
+
+*Step (8.1) : Defining program variables.
+*Step (8.2): Assigning a value to the mobile phone number variable and printing it on the screen.
+*Step (8.3) : Finding the country code as the first four characters of the phone number with the offset operation.
+*Step (8.4): With the offset operation of the operator code, the phone number is found as three characters from the 5th character as the phone number, the mobile phone number as the remaining characters from the 7th character to the end of the variable.
+*determination.
+*Step (8.5): Finding the mobile phone number as the phone number as the remaining characters from the 7th character to the end of the variable.
+
+
+
+
+
+
+
+
+
+
+
+
+
+*&---------------------------------------------------------------------*
+*& Report ZBA_EXAMPLE_10
+*&---------------------------------------------------------------------*
+*& Author   : ......
+*& Subject   : Calculation methods with Date Variables
+*& Date     : ......
+*&---------------------------------------------------------------------*
+REPORT ZBA_example_10.
+
+
+* Step (10.1) Defining program variables
+* (   gv_date                  -> date
+*     gv_month_first_day_date  -> date
+*     gv_twenty_days_after     -> date
+*     gv_twenty_days_before    -> date
+*     gv_next_month_first_day  -> date
+*     gv_last_month_last_day   -> date
+*     gv_year_passed_day       -> integer
+*     gv_year_remaining_day    -> integer
+*     gv_year_first_day_date   -> date
+*     gv_year_last_day_date    -> date
+* )
+
+DATA  gv_date                  TYPE sy-datum  .
+DATA  gv_month_first_day_date  TYPE sy-datum  .
+DATA  gv_twenty_days_after     TYPE sy-datum  .
+DATA  gv_twenty_days_before    TYPE sy-datum  .
+DATA  gv_next_month_first_day  TYPE sy-datum  .
+DATA  gv_last_month_last_day   TYPE sy-datum  .
+DATA  gv_year_passed_day       TYPE i  .
+DATA  gv_year_remaining_day    TYPE i  .
+DATA  gv_year_first_day_date   TYPE sy-datum  .
+DATA  gv_year_last_day_date    TYPE sy-datum  .
+
+* ( Step 10.2) Assigning a value to the date variable
+*( gv_date -> '20210911' )
+
+gv_date = '20210911'.
+
+
+*( Step 10.3) Printing the date variable to the screen
+*( gv_date -> print to screen )
+
+WRITE :/ 'Date                      : ', gv_date.
+
+*( Step 10.4) Taking the current date from the system area sy-datum and assigning it to the gv_date variable and printing it on the screen
+*( gv_date <- sy-datum.
+* gv_date -> print to screen
+*)
+
+gv_date = sy-datum.
+WRITE :/ 'Date of the Day           : ', gv_date.
+
+* ( Step 10.5) Finding the first day of the month ( gv_month_first_day_date )
+* gv_month_first_day_date -> print to screen
+
+gv_month_first_day_date = sy-datum.
+gv_month_first_day_date+6(2) = '01'.
+WRITE :/ 'first day of the month    : ', gv_month_first_day_date. " UNDER gv_date.
+
+* ( Step 10.6) Calculation of the date after twenty days ( gv_twenty_days_after )
+* gv_twenty_gun_sorasi -> print to screen
+
+gv_twenty_days_after = sy-datum + 20.
+WRITE :/ 'Twenty days later         : ', gv_twenty_days_after. " UNDER gv_date.
+
+
+*( Step 10.7) Calculating the date of twenty days ago ( gv_twenty_days_before )
+* gv_twenty_gun_oncesi -> print to screen
+gv_twenty_days_before = sy-datum - 20.
+WRITE :/ 'Twenty days ago           : ', gv_twenty_days_before. " UNDER gv_date.
+
+* ( Step 10.8) Calculation of the first day of the next month ( gv_next_month_first_day )
+* gv_next_month_first_day -> print to screen
+
+gv_next_month_first_day = sy-datum  + 40.
+gv_next_month_first_day+6(2) = '01'.
+WRITE :/ 'First day of next month   : ', gv_next_month_first_day. " UNDER gv_date.
+
+
+* ( Step 10.9) Calculation of the last day of the last month 
+* ( gv_last_month_last_day. )
+* gv_last_month_last_day - > print to screen
+
+gv_last_month_last_day = gv_month_first_day_date - 1.
+WRITE :/ 'Last day of last month    : ', gv_last_month_last_day. " UNDER gv_date.
+
+* ( Step 10.10) Calculation of the number of days passed in the current year ( gv_year_passed_days )
+* gv_year_passed_days -> print to screen
+
+gv_year_first_day_date = sy-datum.
+gv_year_first_day_date+4(4) = '0101'.
+gv_year_passed_day = sy-datum - gv_year_first_day_date.
+WRITE :/ 'Number of days passed     : ', gv_year_passed_day UNDER gv_date.
+
+* ( Step 10.11) Calculation of the remaining days of the current year ( gv_year_remaining_day )
+*gv_year_remaining_gun -> print to screen
+
+gv_year_last_day_date = sy-datum.
+gv_year_last_day_date+4(4) = '1231'.
+gv_year_remaining_day = gv_year_last_day_date - sy-datum.
+WRITE :/ 'Number of days remaining  : ', gv_year_remaining_day UNDER gv_date.
+*The result if you run the program
+
+
+
+*Explanations of the program code are as follows:
+* Defining program variables.
+* Date variables are defined with reference to the data type of the system variable SY-DATUM.
+* The value of system variables are assigned automatically by the system. The SY-DATUM variable holds today's date as a value.
+* Finding the date after and before twenty days by adding or subtracting 20 from the SY-DATUM field.
+* ABAP/4 language automatically adds or subtracts the number of days from the date when adding and subtracting date variables.
+
+
+
+
+
+
+
+
+
+
+
+
+
+*&---------------------------------------------------------------------*
+*& Report ZBA_EXAMPLE_11
+*&---------------------------------------------------------------------*
+*& Author   : ......
+*& Subject   : Time Variables
+*& Date     : ......
+*&---------------------------------------------------------------------*
+REPORT ZBA_EXAMPLE_11.
+
+*Defining program variables
+*( gv_time1           -> time
+* gv_time2           -> sy-uzeit
+* gv_time_edit_mask  -> character 8
+*)
+
+DATA gv_time1 TYPE t.
+DATA gv_time2 TYPE sy-uzeit.
+DATA gv_time_edit_mask TYPE c LENGTH 8.
+
+* Assign '143010' to the gv_time1 variable and display it on the screen.
+* ( gv_time1 -> '143010' )
+
+gv_time1 = '143010'.
+WRITE : / ' Time 1              : ' , gv_time1.
+
+* Assign gv_time1 variable to gv_time_edit_mask
+*( gv_time_edit_mask = gv_time1 )
+* Display the gv_time_edit_mask variable on the screen using USING EDIT MASK '__:__:__'.
+
+
+gv_time_edit_mask = gv_time1.
+WRITE : / ' Time 1 ( MASK )     : ', gv_time_edit_mask USING EDIT MASK '__:__:__'.
+
+*Assign gv_time1 to gv_time2
+*( gv_time2 = gv_time1
+* Display the gv_time2 variable on the screen
+* Now show the time on the screen -> sy-uzeit
+* )
+
+gv_time2 = gv_time1.
+WRITE : / ' Time 2              : ', gv_time2.
+WRITE : / ' Now                 : ', sy-uzeit .
+
+
+
+
+
+
+
+
+
+*The result if you run the program
+
+
+*Defining program variables.
+* The variable gv_time2 is made by referencing the data type of the system variable SY-UZEIT.
+* SY-UZEIT is a system variable that keeps the current time in the system down to the second.
+* By using the USING EDIT MASK suffix of the WRITE command, the time information is printed with a : sign between the hour, minute and second.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*&---------------------------------------------------------------------*
+*& Report ZBA_EXAMPLE_12
+*&---------------------------------------------------------------------*
+*& Author   : ......
+*& Subject   : Time Operations
+*& Date     : ......
+*&---------------------------------------------------------------------*
+REPORT ZBA_EXAMPLE_12.
+
+* Step (12.1) Defining program variables.
+* (
+*   gv_starting  -> time initial value '091500'.
+*   gv_ending    -> time initial value '184500'.
+*   gv_seconds   -> integer.
+*   gv_hours     -> packed DECIMALS 1.
+*   gv_minute    -> packed DECIMALS 2.
+*)
+
+DATA gv_start        TYPE t VALUE '091500'.
+DATA gv_end          TYPE t VALUE '184500'.
+DATA gv_second       TYPE i.
+DATA gv_hour         TYPE p DECIMALS 1.
+DATA gv_minute       TYPE p DECIMALS 2.
+
+* Step (12.2) Calculation of the difference in seconds between the end and the start.
+* ( gv_second = gv_ending - gv_start) ,
+*   gv_seconds -> print to screen
+
+gv_second = gv_end  - gv_start.
+WRITE : / gv_second , 'seconds'.
+
+* Step (12.3) Calculate the difference in minutes.
+* ( gv_minute = gv_second / 60) .
+*   gv_minute -> print to screen
+
+gv_minute = gv_second  / 60.
+WRITE : / gv_minute , 'minutes'.
+
+* Step (12.4) Calculate the difference in hours.
+*( gv_hour = gv_second / 3600
+*  gv_hour > print to screen
+* )
+
+gv_hour = gv_second / 3600.
+WRITE : / gv_hour, 'hours'.
+
+
+
+
+
+
+*The result if you run the program
+
+
+
+*The description of the program code is as follows:
+*Step (12.1) : Defining program variables.
+*Step (12.2) : Calculate the difference in seconds between the end and the start.
+*Step (12.3) : Calculate the difference in minutes.
+*Step (12.4) : Calculate the difference in hours.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*&---------------------------------------------------------------------*
+*& Report ZBA_EXAMPLE_19
+*&---------------------------------------------------------------------*
+*& Author   : ......
+*& Subject   : İf else endif.
+*& Date     : ......
+*&---------------------------------------------------------------------*
+REPORT ZBA_example_19.
+
+*The month of the date the program was run will be found
+* and the quarter of the year will be printed on the screen
+* according to the month in it.
+
+* step ( 19.1 ) Defining program variables
+*( gv_date    -> date
+*  gv_month   -> character 2.
+*)
+
+DATA gv_date  TYPE d.
+DATA gv_month TYPE c LENGTH 2.
+
+
+*Step ( 19.2) Assigning the current date from the system date field sy-datum to the gv_date variable
+
+gv_date = sy-datum.
+
+* Step ( 19.3) Obtaining the month information of the date
+*( gv_month )
+* Screen printing of gv_date in DD/MM/YYYY format.
+
+gv_month = gv_date+4(2).
+WRITE / gv_date DD/MM/YYYY.
+
+*step (19.4) Printing which quarter of the year we are in according to the current month ( gv_month ) in
+* for example: You are in the first quarter of the year.
+
+IF gv_month = '01' OR
+   gv_month = '02' OR
+   gv_month = '03'.
+
+  WRITE / 'You are in the first quarter of the year'.
+
+ELSEIF gv_month = '04' OR
+       gv_month = '05' OR
+       gv_month = '06'.
+
+  WRITE / 'You are in the second quarter of the year'.
+
+ELSEIF gv_month = '07' OR
+       gv_month = '08' OR
+       gv_month = '09'.
+
+  WRITE / 'You are in the third quarter of the year'.
+
+ELSE.
+
+  WRITE / 'You are in the last quarter of the year'.
+
+ENDIF.
+
+*The result if you run the program
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*&---------------------------------------------------------------------*
+*& Report ZBA_EXAMPLE_21
+*&---------------------------------------------------------------------*
+*& Author : ......
+*& Subject : Case When Endcase command
+*& Date : ......
+*&---------------------------------------------------------------------*
+* In ABAP/4 programming language, CASE, WHEN, ENDCASE command is used to compare the value of a variable with the values ​​
+* in a certain set of values ​​and run different commands according to the matching value.
+
+REPORT ZBA_EXAMPLE_21.
+
+* In the program, the month of the date the program was run will be found and the month will be printed on the screen using the CASE command.
+
+* Step (21.1) Defining program variables
+* ( gv_date -> date.
+*   gv_month -> numeric character 2
+* )
+
+DATA gv_date TYPE d.
+DATA gv_month TYPE n LENGTH 2.
+
+* (step 21.2)  Assigning the system date to the gv_date variable
+gv_date = sy-datum.
+
+* (step 21.3) Getting the month value from the date
+*( gv_month )
+gv_month = gv_date+4(2).
+
+* (step 21.4) Printing the month information to the screen according to the current month
+* Use the case when endcase construct.
+* case gv_month
+* when ....
+* endcase.
+
+CASE gv_month.
+  WHEN '01'.
+    WRITE / 'We are in January'.
+  WHEN '02' .
+    WRITE / 'We are in February'.
+  WHEN '03' .
+    WRITE / 'We are in March' .
+  WHEN '04'.
+    WRITE / 'We are in the month of April'.
+  WHEN '05'.
+    WRITE / 'We are in May'.
+  WHEN '06'.
+    WRITE / 'We are in June'.
+  WHEN '07'.
+    WRITE / 'We are in July'.
+  WHEN '08'.
+    WRITE / 'We are in August'.
+  WHEN '09'.
+    WRITE / 'We are in September'.
+  WHEN '010'.
+    WRITE / 'We are in October'.
+  WHEN '11'.
+    WRITE / 'We are in November'.
+  WHEN '12'.
+    WRITE / 'We are in December'.
+ENDCASE.
+
+
+*The result if you run the program
+
+
